@@ -1,0 +1,27 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+
+data/
+
+# --- Run artifacts ---
+# Experiment JSONs and figures under results/ ARE tracked; these are noise.
+results/
+
+# --- Local tooling ---
+.claude/settings.local.json
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+paper.pdf
+
+_legacy/
