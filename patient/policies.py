@@ -203,7 +203,7 @@ def capacity_greedy(theta_hat, capacities, k):
 
 
 def exact_saa_milp(theta_hat, capacities, k, epsilon=0.1, S=10, seed=None,
-                    time_limit=None, mip_gap=1e-4, threads=1):
+                    time_limit=None, mip_gap=1e-4, threads=0):
     """Ground-truth SAA-MILP (Eq. 2), small-N only (Figure 3-left). A single
     shared menu X is chosen to maximize expected realized utility across S
     noisy scenarios, each with its own random patient arrival order and exact
@@ -229,9 +229,22 @@ def exact_saa_milp(theta_hat, capacities, k, epsilon=0.1, S=10, seed=None,
        than its own variable, removing N*M*S continuous variables and their
        defining equalities.
 
+    The formulation is verified exact: `tests/debugging/milp_bruteforce_check.py`
+    enumerates every admissible menu on four small instances and confirms the
+    MILP's menu attains the brute-force optimum of the same SAA objective.
+
     time_limit / mip_gap bound the search. If the solver stops early the best
     incumbent is returned; a warning is printed with the gap actually
-    achieved so a truncated solve is visible rather than silent."""
+    achieved so a truncated solve is visible rather than silent. THAT WARNING
+    MATTERS: a truncated solve is not the optimum, and since this policy is
+    the denominator of the approximation-ratio figure, a truncated denominator
+    shows up as heuristics scoring above 1.0. Check the log for
+    "exact_saa_milp stopped" after any run that feeds that figure.
+
+    threads defaults to 0 (Gurobi's "use every available core"). It was
+    previously pinned at 1, which is what caused 41 of 54 solves in the
+    9-seed sweep to hit the 300 s limit with a median gap of 6% -- the
+    branch-and-bound, not the formulation, was the bottleneck."""
     rng = np.random.RandomState(seed)
     N = theta_hat.shape[0]
     M = theta_hat.shape[1] - 1

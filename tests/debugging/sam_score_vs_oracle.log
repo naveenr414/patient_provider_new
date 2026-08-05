@@ -1,0 +1,67 @@
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+seed=0 trial=0 N=1225 M=700 k=25 epsilon=0.25 S=10
+
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+/usr0/home/naveenr/projects/patient_provider_new/tests/debugging/sam_score_vs_oracle.py:172: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  rhos = [spearmanr(m[i, live], z[i, live]).statistic for i in idx]
+  scenario 1/10 solved (26s)
+  scenario 2/10 solved (35s)
+  scenario 3/10 solved (45s)
+  scenario 4/10 solved (54s)
+  scenario 5/10 solved (64s)
+  scenario 6/10 solved (73s)
+  scenario 7/10 solved (83s)
+  scenario 8/10 solved (92s)
+  scenario 9/10 solved (102s)
+  scenario 10/10 solved (111s)
+  oracle LP solved (121s)
+
+============================================================================================
+1. SCORE DISTRIBUTIONS  (all N x M = 857500 entries)
+============================================================================================
+m_ij  (SAM)                mean=0.0036 sd=0.0105 zero=72.88% | med=0.0000 p75=0.0008 p90=0.0102 p95=0.0227 p99=0.0556 max=0.1651
+z_ij  (oracle)             mean=0.0038 sd=0.0233 zero=95.37% | med=0.0000 p75=0.0000 p90=0.0000 p95=0.0000 p99=0.1297 max=0.4073
+z_ij w/ lambda_bar         mean=0.0037 sd=0.0230 zero=95.50% | med=0.0000 p75=0.0000 p90=0.0000 p95=0.0000 p99=0.1274 max=0.3961
+
+m_ij, live providers       mean=0.0040 sd=0.0111 zero=70.02% | med=0.0000 p75=0.0019 p90=0.0114 p95=0.0248 p99=0.0583 max=0.1651
+z_ij, live providers       mean=0.0042 sd=0.0246 zero=94.87% | med=0.0000 p75=0.0000 p90=0.0000 p95=0.0025 p99=0.1373 max=0.4073
+
+positive-score entries per patient (the pool top-k draws from):
+   m: mean   133.4  median   135.0  min 0  max 300
+   z: mean    22.8  median     4.0  min 0  max 157
+
+============================================================================================
+2. HOW DIFFERENT ARE m AND z?
+============================================================================================
+m vs z                 mean_diff=-0.0002  MAE=0.0062  RMSE=0.0219  corr=0.4567  sign-agree=74.62%  both>0=4.86%
+m vs z (same duals)    mean_diff=-0.0001  MAE=0.0061  RMSE=0.0215  corr=0.4611  sign-agree=75.00%  both>0=4.98%
+z_lambar vs z          mean_diff=-0.0001  MAE=0.0006  RMSE=0.0036  corr=0.9891  sign-agree=99.30%  both>0=4.70%
+
+top-k menu overlap (k=25, the only thing the score is used for):
+   |X_SAM| mean 24.45, |X_oracle| mean 10.15, overlap mean 5.29 (21.6% of SAM's picks)
+   patients with identical menus: 0.33%
+   per-patient Spearman rho(m, z) over live providers: mean 0.4380, median 0.4294
+
+============================================================================================
+3. DUALS: lambda_bar (SAM's average) VS lambda* (realized theta)
+============================================================================================
+lambda_bar                 mean=0.6660 sd=0.0542 zero= 0.00% | med=0.6474 p75=0.7108 p90=0.7488 p95=0.7603 p99=0.7735 max=0.8294
+lambda*                    mean=0.6650 sd=0.0589 zero= 0.00% | med=0.6447 p75=0.7150 p90=0.7519 p95=0.7667 p99=0.8027 max=0.8605
+per-scenario lambda        mean=0.6660 sd=0.0594 zero= 0.00% | med=0.6466 p75=0.7164 p90=0.7531 p95=0.7675 p99=0.8062 max=0.8716
+
+mean_diff=+0.0010  MAE=0.0163  RMSE=0.0230  corr=0.9208
+nonzero duals: lambda_bar 100.00%, lambda* 100.00%  (providers with c_j>0: 63.57%)
+on live providers: MAE=0.0147, relative MAE=0.023
+scenario-to-scenario sd of lambda_j (mean over j): 0.0213  -- i.e. how much averaging S=10 scenarios is smoothing
+|lambda_bar - lambda*| vs that sd: ratio 0.766
+
+============================================================================================
+4. VALUE OF THE TWO MENUS ON THE REALIZED theta (10 arrival orders)
+============================================================================================
+   V(X from m) = 0.6264 +/- 0.0024
+   V(X from z) = 0.6861 +/- 0.0016   (hindsight advantage +9.54%)
+
+saved /usr0/home/naveenr/projects/patient_provider_new/tests/debugging/sam_score_vs_oracle.npz  (122s total)

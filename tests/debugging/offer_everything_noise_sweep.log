@@ -1,0 +1,206 @@
+N=1225 M=700 k=M=700 (uncapped) | 9 seeds x 25 trials | epsilon=[0.01, 0.1, 0.2, 0.3, 0.4, 0.5]
+54 jobs on 54 workers; omniscient normalizers reused from results/noise
+
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+  [1/54] (20s) eps=0.4 seed=0 norm=0.8674
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+  [2/54] (21s) eps=0.1 seed=7 norm=0.9058
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+  [3/54] (21s) eps=0.5 seed=2 norm=0.8544
+  [4/54] (21s) eps=0.4 seed=1 norm=0.8681
+  [5/54] (21s) eps=0.01 seed=4 norm=0.9235
+  [6/54] (21s) eps=0.1 seed=1 norm=0.9030
+  [7/54] (22s) eps=0.01 seed=6 norm=0.9088
+  [8/54] (22s) eps=0.3 seed=8 norm=0.8684
+  [9/54] (22s) eps=0.5 seed=4 norm=0.8621
+  [10/54] (22s) eps=0.3 seed=7 norm=0.8713
+  [11/54] (22s) eps=0.5 seed=5 norm=0.8568
+  [12/54] (22s) eps=0.01 seed=2 norm=0.9162
+  [13/54] (22s) eps=0.4 seed=3 norm=0.8664
+  [14/54] (22s) eps=0.3 seed=6 norm=0.8664
+  [15/54] (22s) eps=0.1 seed=5 norm=0.9017
+  [16/54] (22s) eps=0.4 seed=6 norm=0.8630
+  [17/54] (22s) eps=0.5 seed=8 norm=0.8583
+  [18/54] (23s) eps=0.01 seed=0 norm=0.9165
+  [19/54] (23s) eps=0.4 seed=2 norm=0.8594
+  [20/54] (23s) eps=0.2 seed=1 norm=0.8827
+  [21/54] (23s) eps=0.5 seed=1 norm=0.8616
+  [22/54] (24s) eps=0.2 seed=5 norm=0.8811
+  [23/54] (24s) eps=0.2 seed=2 norm=0.8791
+  [24/54] (24s) eps=0.01 seed=3 norm=0.9123
+  [25/54] (24s) eps=0.01 seed=7 norm=0.9194
+  [26/54] (25s) eps=0.01 seed=1 norm=0.9206
+  [27/54] (25s) eps=0.1 seed=6 norm=0.8969
+  [28/54] (25s) eps=0.1 seed=0 norm=0.9042
+  [29/54] (25s) eps=0.3 seed=1 norm=0.8713
+  [30/54] (25s) eps=0.1 seed=4 norm=0.9073
+  [31/54] (26s) eps=0.1 seed=2 norm=0.8996
+  [32/54] (26s) eps=0.01 seed=8 norm=0.9202
+  [33/54] (26s) eps=0.2 seed=0 norm=0.8851
+  [34/54] (26s) eps=0.5 seed=0 norm=0.8615
+  [35/54] (26s) eps=0.4 seed=5 norm=0.8620
+  [36/54] (26s) eps=0.5 seed=3 norm=0.8618
+  [37/54] (26s) eps=0.1 seed=8 norm=0.9045
+  [38/54] (27s) eps=0.4 seed=4 norm=0.8680
+  [39/54] (27s) eps=0.4 seed=8 norm=0.8640
+  [40/54] (28s) eps=0.4 seed=7 norm=0.8670
+  [41/54] (28s) eps=0.01 seed=5 norm=0.9175
+  [42/54] (28s) eps=0.1 seed=3 norm=0.9020
+  [43/54] (28s) eps=0.5 seed=6 norm=0.8578
+  [44/54] (29s) eps=0.3 seed=4 norm=0.8725
+  [45/54] (29s) eps=0.5 seed=7 norm=0.8619
+  [46/54] (33s) eps=0.2 seed=6 norm=0.8791
+  [47/54] (33s) eps=0.3 seed=2 norm=0.8643
+  [48/54] (33s) eps=0.3 seed=5 norm=0.8661
+  [49/54] (33s) eps=0.2 seed=3 norm=0.8835
+  [50/54] (34s) eps=0.3 seed=0 norm=0.8720
+  [51/54] (34s) eps=0.2 seed=8 norm=0.8835
+  [52/54] (34s) eps=0.3 seed=3 norm=0.8701
+  [53/54] (35s) eps=0.2 seed=7 norm=0.8858
+  [54/54] (35s) eps=0.2 seed=4 norm=0.8870
+
+============================================================================================
+NORMALIZED UTILITY vs EPSILON  (mean +/- SE across 9 seeds)
+============================================================================================
+policy                   eps=0.01    eps=0.1    eps=0.2    eps=0.3    eps=0.4    eps=0.5
+offer_everything           0.9172     0.9028     0.8830     0.8692     0.8650     0.8596
+                        +/-0.0015  +/-0.0011  +/-0.0009  +/-0.0010  +/-0.0010  +/-0.0009
+sam                        0.9852     0.9390     0.8740     0.8456     0.8318     0.8185
+                        +/-0.0010  +/-0.0025  +/-0.0014  +/-0.0009  +/-0.0009  +/-0.0011
+random                     0.8477     0.8109     0.7790     0.7685     0.7873     0.8083
+                        +/-0.0010  +/-0.0004  +/-0.0004  +/-0.0006  +/-0.0006  +/-0.0007
+offer_all                  0.8864     0.8493     0.8070     0.7769     0.7680     0.7616
+                        +/-0.0019  +/-0.0022  +/-0.0023  +/-0.0023  +/-0.0024  +/-0.0026
+capacity_greedy            0.8633     0.8279     0.7891     0.7604     0.7524     0.7486
+                        +/-0.0012  +/-0.0008  +/-0.0006  +/-0.0006  +/-0.0010  +/-0.0013
+offer_one                  0.9898     0.9027     0.8121     0.7436     0.7117     0.6895
+                        +/-0.0001  +/-0.0008  +/-0.0009  +/-0.0008  +/-0.0006  +/-0.0008
+deferred_acceptance        0.9827     0.8961     0.8061     0.7382     0.7071     0.6861
+                        +/-0.0009  +/-0.0012  +/-0.0014  +/-0.0012  +/-0.0011  +/-0.0012
+
+============================================================================================
+PAIRED DIFFERENCE: uncapped offer-everything - SAM(k=25), per seed
+============================================================================================
+ epsilon   d(norm.)       SE        t   seeds>0  #choices(unc.)  #choices(SAM)
+    0.01    -0.0680   0.0017   -39.24      0/9          130.81           6.71
+     0.1    -0.0362   0.0028   -12.96      0/9          130.89           7.00
+     0.2     0.0090   0.0016     5.54      9/9          130.99           8.33
+     0.3     0.0235   0.0007    33.72      9/9          130.60           8.33
+     0.4     0.0333   0.0013    24.72      9/9          129.95           7.93
+     0.5     0.0410   0.0016    25.03      9/9          129.49           7.40
+
+cost of the k=25 cap at each epsilon, as a share of the uncapped utility:
+policy                   eps=0.01    eps=0.1    eps=0.2    eps=0.3    eps=0.4    eps=0.5
+sam                        -7.42%     -4.02%      1.02%      2.71%      3.85%      4.77%
+random                      7.58%     10.17%     11.78%     11.58%      8.98%      5.97%
+offer_all                   3.36%      5.92%      8.61%     10.61%     11.22%     11.40%
+capacity_greedy             5.88%      8.30%     10.63%     12.51%     13.02%     12.90%
+offer_one                  -7.91%      0.01%      8.02%     14.45%     17.72%     19.78%
+deferred_acceptance        -7.14%      0.74%      8.71%     15.06%     18.25%     20.18%
+
+wrote /usr0/home/naveenr/projects/patient_provider_new/results/noise_offer_everything/offer_everything__epsilon=*.json (36s total)

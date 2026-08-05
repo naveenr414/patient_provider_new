@@ -5,6 +5,8 @@ M = exit) and `rewards` (num_trials x N), the single planned `menus`
 (N x M), and theta/capacities for the omniscient-LP normalizer.
 """
 import numpy as np
+import gurobipy as gp
+from gurobipy import GRB
 
 from patient.utils import solve_omniscient_lp
 
@@ -37,6 +39,73 @@ def omniscient_utility(theta, capacities):
     assigned = assignment.sum(axis=1) > 0
     reward = np.where(assigned, (theta[:, :M] * assignment).sum(axis=1), theta[:, M])
     return float(reward.mean())
+
+
+def menu_restricted_lp_utility(theta, capacities, menus):
+    """E_theta[LP(X, theta)]: the best assignment achievable if the realized
+    theta were known but the platform were still confined to the menus it
+    already committed to. Mean per-patient utility, same units and same
+    exit-option convention as `omniscient_utility`.
+
+    This is the middle term of the additive-error decomposition
+
+        OPT(theta) - V  =  [OPT(theta) - LP(X, theta)]  +  [LP(X, theta) - V]
+
+    and both brackets are non-negative by construction. LP(X) is a maximum
+    over a subset of the assignments OPT maximises over (only pairs with
+    X_ij = 1), so OPT >= LP(X); and the sequential process's own outcome is
+    itself a feasible point of LP(X) -- it never exceeds capacity and never
+    matches outside the menu -- so LP(X) >= V.
+
+    The two brackets separate the two distinct things a menu policy can get
+    wrong. The first is COVERAGE: X may simply not contain the pairs a good
+    assignment needs (offer_one's single column per patient is the extreme
+    case; an unbounded offer_all, whose X is everything, drives this to zero).
+    The second is COORDINATION: even when X contains a good assignment,
+    patients arrive in a random order and each takes their own best available
+    option, with no mechanism making them collectively pick that assignment.
+    It vanishes exactly when the menu leaves patients no discretion that
+    matters -- offer_one, whose every patient has one option that its LP
+    already reserved capacity for, has LP(X) - V = 0 identically.
+
+    theta: N x (M+1), or num_trials x N x (M+1), in which case the LP is
+        solved per realization and averaged (as in `omniscient_utility`).
+    menus: N x M 0/1, the committed menu (`run_trials`' 'menus'), shared
+        across trials.
+
+    Only the allowed (i, j) pairs become variables, so this is far cheaper
+    than the unrestricted LP -- a k=25 menu gives 25N columns rather than MN.
+    """
+    theta = np.asarray(theta, dtype=float)
+    if theta.ndim == 3:
+        return float(np.mean([menu_restricted_lp_utility(t, capacities, menus)
+                              for t in theta]))
+    N, m_plus_1 = theta.shape
+    M = m_plus_1 - 1
+    allowed = [(i, j) for i in range(N) for j in np.flatnonzero(menus[i])]
+
+    model = gp.Model("menu_restricted_lp")
+    model.setParam("OutputFlag", 0)
+    x = model.addVars(allowed, lb=0.0, ub=1.0, name="x")
+    # Same form as `utils.solve_omniscient_lp`: a patient's baseline is the
+    # exit option, and assigning them to j is worth the improvement over it.
+    # Pairs worse than exiting therefore carry a negative coefficient and are
+    # simply left unassigned, which is what makes "assigned or exited" come
+    # out right without a separate exit variable.
+    model.setObjective(
+        gp.quicksum(theta[i, M] for i in range(N))
+        + gp.quicksum((theta[i, j] - theta[i, M]) * x[i, j] for i, j in allowed),
+        GRB.MAXIMIZE)
+    by_patient, by_provider = {}, {}
+    for i, j in allowed:
+        by_patient.setdefault(i, []).append((i, j))
+        by_provider.setdefault(j, []).append((i, j))
+    for i, pairs in by_patient.items():
+        model.addConstr(gp.quicksum(x[p] for p in pairs) <= 1)
+    for j, pairs in by_provider.items():
+        model.addConstr(gp.quicksum(x[p] for p in pairs) <= capacities[j])
+    model.optimize()
+    return float(model.ObjVal / N)
 
 
 def normalized_utility(rewards, theta, capacities):

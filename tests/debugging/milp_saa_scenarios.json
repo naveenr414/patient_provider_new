@@ -1,0 +1,893 @@
+[
+  {
+    "epsilon": 0.3,
+    "seed": 0,
+    "milp": {
+      "25": {
+        "normalized": 0.8844062115374565,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "50": {
+        "normalized": 0.8729122476942669,
+        "runtime": NaN,
+        "menu": 1.9
+      },
+      "100": {
+        "normalized": 0.8784061640775971,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "200": {
+        "normalized": 0.8749632463055441,
+        "runtime": NaN,
+        "menu": 1.8
+      }
+    },
+    "rivals": {
+      "sam": 0.8640159387279391,
+      "offer_all": 0.7785958984659042,
+      "offer_one": 0.8719105222479626,
+      "random": 0.8139019026946946
+    },
+    "omniscient": 0.6857003459334373
+  },
+  {
+    "epsilon": 0.3,
+    "seed": 1,
+    "milp": {
+      "25": {
+        "normalized": 0.9301665983097508,
+        "runtime": NaN,
+        "menu": 0.4
+      },
+      "50": {
+        "normalized": 0.9223694969327145,
+        "runtime": NaN,
+        "menu": 0.7
+      },
+      "100": {
+        "normalized": 0.9065098476755628,
+        "runtime": NaN,
+        "menu": 0.6
+      },
+      "200": {
+        "normalized": 0.900728545509827,
+        "runtime": NaN,
+        "menu": 0.6
+      }
+    },
+    "rivals": {
+      "sam": 0.9194663839443006,
+      "offer_all": 0.9190612025799729,
+      "offer_one": 0.8945850394526998,
+      "random": 0.9190612025799729
+    },
+    "omniscient": 0.32577091499697425
+  },
+  {
+    "epsilon": 0.3,
+    "seed": 2,
+    "milp": {
+      "25": {
+        "normalized": 0.8097299678919219,
+        "runtime": NaN,
+        "menu": 1.4
+      },
+      "50": {
+        "normalized": 0.8256046983887028,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "100": {
+        "normalized": 0.8144082813739355,
+        "runtime": NaN,
+        "menu": 1.3
+      },
+      "200": {
+        "normalized": 0.8430780445498716,
+        "runtime": NaN,
+        "menu": 1.4
+      }
+    },
+    "rivals": {
+      "sam": 0.8069012306224378,
+      "offer_all": 0.8375283382199262,
+      "offer_one": 0.8292794524978605,
+      "random": 0.7995362083065946
+    },
+    "omniscient": 0.49317140328139075
+  },
+  {
+    "epsilon": 0.3,
+    "seed": 3,
+    "milp": {
+      "25": {
+        "normalized": 0.8261638629258734,
+        "runtime": NaN,
+        "menu": 1.5
+      },
+      "50": {
+        "normalized": 0.8458114323900034,
+        "runtime": NaN,
+        "menu": 1.3
+      },
+      "100": {
+        "normalized": 0.837878891908516,
+        "runtime": NaN,
+        "menu": 1.7
+      },
+      "200": {
+        "normalized": 0.8814178128539986,
+        "runtime": NaN,
+        "menu": 1.5
+      }
+    },
+    "rivals": {
+      "sam": 0.8535020637737203,
+      "offer_all": 0.8513137167637962,
+      "offer_one": 0.8027783327816591,
+      "random": 0.8266305211022207
+    },
+    "omniscient": 0.5748166635632515
+  },
+  {
+    "epsilon": 0.3,
+    "seed": 4,
+    "milp": {
+      "25": {
+        "normalized": 0.8479268677890165,
+        "runtime": NaN,
+        "menu": 1.2
+      },
+      "50": {
+        "normalized": 0.8453499183207487,
+        "runtime": NaN,
+        "menu": 1.1
+      },
+      "100": {
+        "normalized": 0.8525261059295502,
+        "runtime": NaN,
+        "menu": 1.1
+      },
+      "200": {
+        "normalized": 0.8499570792110626,
+        "runtime": NaN,
+        "menu": 1.0
+      }
+    },
+    "rivals": {
+      "sam": 0.8274910270001565,
+      "offer_all": 0.8252225329347843,
+      "offer_one": 0.8335487931641905,
+      "random": 0.8008902960134101
+    },
+    "omniscient": 0.5766146743595599
+  },
+  {
+    "epsilon": 0.3,
+    "seed": 5,
+    "milp": {
+      "25": {
+        "normalized": 0.8862592448447708,
+        "runtime": NaN,
+        "menu": 1.2
+      },
+      "50": {
+        "normalized": 0.8867171910917614,
+        "runtime": NaN,
+        "menu": 1.1
+      },
+      "100": {
+        "normalized": 0.8867171910917614,
+        "runtime": NaN,
+        "menu": 1.1
+      },
+      "200": {
+        "normalized": 0.8867171910917614,
+        "runtime": NaN,
+        "menu": 1.1
+      }
+    },
+    "rivals": {
+      "sam": 0.827120019454764,
+      "offer_all": 0.8049020789591746,
+      "offer_one": 0.8240601521251568,
+      "random": 0.8022687815323298
+    },
+    "omniscient": 0.5677914855703711
+  },
+  {
+    "epsilon": 0.3,
+    "seed": 6,
+    "milp": {
+      "25": {
+        "normalized": 0.8000026985546994,
+        "runtime": NaN,
+        "menu": 1.2
+      },
+      "50": {
+        "normalized": 0.7805862599900757,
+        "runtime": NaN,
+        "menu": 1.5
+      },
+      "100": {
+        "normalized": 0.8169004614208308,
+        "runtime": NaN,
+        "menu": 1.3
+      },
+      "200": {
+        "normalized": 0.8123049752135105,
+        "runtime": NaN,
+        "menu": 1.2
+      }
+    },
+    "rivals": {
+      "sam": 0.7885141458613761,
+      "offer_all": 0.7736081111345542,
+      "offer_one": 0.7845269720408888,
+      "random": 0.7748173932498293
+    },
+    "omniscient": 0.4912487745210528
+  },
+  {
+    "epsilon": 0.3,
+    "seed": 7,
+    "milp": {
+      "25": {
+        "normalized": 0.825960849281146,
+        "runtime": NaN,
+        "menu": 1.2
+      },
+      "50": {
+        "normalized": 0.8381922225909259,
+        "runtime": NaN,
+        "menu": 1.2
+      },
+      "100": {
+        "normalized": 0.837975308036577,
+        "runtime": NaN,
+        "menu": 0.8
+      },
+      "200": {
+        "normalized": 0.8585228400460819,
+        "runtime": NaN,
+        "menu": 0.7
+      }
+    },
+    "rivals": {
+      "sam": 0.8399564606768264,
+      "offer_all": 0.8395557982286552,
+      "offer_one": 0.8294319441985754,
+      "random": 0.8395557982286552
+    },
+    "omniscient": 0.4993317141123116
+  },
+  {
+    "epsilon": 0.3,
+    "seed": 8,
+    "milp": {
+      "25": {
+        "normalized": 0.85310948106106,
+        "runtime": NaN,
+        "menu": 1.9
+      },
+      "50": {
+        "normalized": 0.8473832624203196,
+        "runtime": NaN,
+        "menu": 1.9
+      },
+      "100": {
+        "normalized": 0.8485608826397182,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "200": {
+        "normalized": 0.844548484516557,
+        "runtime": NaN,
+        "menu": 2.0
+      }
+    },
+    "rivals": {
+      "sam": 0.8433286289718955,
+      "offer_all": 0.7954194736030515,
+      "offer_one": 0.8017280949005459,
+      "random": 0.7557045412040349
+    },
+    "omniscient": 0.5956639398979022
+  },
+  {
+    "epsilon": 0.4,
+    "seed": 0,
+    "milp": {
+      "25": {
+        "normalized": 0.8544716186776264,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "50": {
+        "normalized": 0.8604945429352545,
+        "runtime": NaN,
+        "menu": 1.9
+      },
+      "100": {
+        "normalized": 0.8537512373906034,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "200": {
+        "normalized": 0.8558127066422785,
+        "runtime": NaN,
+        "menu": 2.0
+      }
+    },
+    "rivals": {
+      "sam": 0.8249645911297203,
+      "offer_all": 0.7593912873139478,
+      "offer_one": 0.8332062199687952,
+      "random": 0.8102108029691935
+    },
+    "omniscient": 0.7366769037246703
+  },
+  {
+    "epsilon": 0.4,
+    "seed": 1,
+    "milp": {
+      "25": {
+        "normalized": 0.9059855235497373,
+        "runtime": NaN,
+        "menu": 0.5
+      },
+      "50": {
+        "normalized": 0.8967922254524897,
+        "runtime": NaN,
+        "menu": 0.5
+      },
+      "100": {
+        "normalized": 0.9045818043731144,
+        "runtime": NaN,
+        "menu": 0.6
+      },
+      "200": {
+        "normalized": 0.9045818043731144,
+        "runtime": NaN,
+        "menu": 0.6
+      }
+    },
+    "rivals": {
+      "sam": 0.9130714060765905,
+      "offer_all": 0.9121418969167675,
+      "offer_one": 0.88273108412011,
+      "random": 0.9121418969167675
+    },
+    "omniscient": 0.35045521712861954
+  },
+  {
+    "epsilon": 0.4,
+    "seed": 2,
+    "milp": {
+      "25": {
+        "normalized": 0.7955092158209869,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "50": {
+        "normalized": 0.7936742533490457,
+        "runtime": NaN,
+        "menu": 1.7
+      },
+      "100": {
+        "normalized": 0.8094632236291246,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "200": {
+        "normalized": 0.8177236221610316,
+        "runtime": NaN,
+        "menu": 1.4
+      }
+    },
+    "rivals": {
+      "sam": 0.7909752447478433,
+      "offer_all": 0.8135035544009194,
+      "offer_one": 0.7919122761241764,
+      "random": 0.7727847364559671
+    },
+    "omniscient": 0.5341151401400566
+  },
+  {
+    "epsilon": 0.4,
+    "seed": 3,
+    "milp": {
+      "25": {
+        "normalized": 0.8274875106218407,
+        "runtime": NaN,
+        "menu": 1.7
+      },
+      "50": {
+        "normalized": 0.8307782489962852,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "100": {
+        "normalized": 0.8360473618915858,
+        "runtime": NaN,
+        "menu": 1.8
+      },
+      "200": {
+        "normalized": 0.8464409603168941,
+        "runtime": NaN,
+        "menu": 1.7
+      }
+    },
+    "rivals": {
+      "sam": 0.8322654887984937,
+      "offer_all": 0.8378476477335715,
+      "offer_one": 0.7577108935864854,
+      "random": 0.8132666080201861
+    },
+    "omniscient": 0.6169856124818325
+  },
+  {
+    "epsilon": 0.4,
+    "seed": 4,
+    "milp": {
+      "25": {
+        "normalized": 0.8525320481873297,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "50": {
+        "normalized": 0.8461561070522721,
+        "runtime": NaN,
+        "menu": 1.4
+      },
+      "100": {
+        "normalized": 0.8412791705775223,
+        "runtime": NaN,
+        "menu": 1.2
+      },
+      "200": {
+        "normalized": 0.8484511795778091,
+        "runtime": NaN,
+        "menu": 1.1
+      }
+    },
+    "rivals": {
+      "sam": 0.83800781339504,
+      "offer_all": 0.8412161909352991,
+      "offer_one": 0.7911863361595656,
+      "random": 0.8118801588600617
+    },
+    "omniscient": 0.6108655477166176
+  },
+  {
+    "epsilon": 0.4,
+    "seed": 5,
+    "milp": {
+      "25": {
+        "normalized": 0.7887970401529553,
+        "runtime": NaN,
+        "menu": 1.5
+      },
+      "50": {
+        "normalized": 0.8581990903500415,
+        "runtime": NaN,
+        "menu": 1.3
+      },
+      "100": {
+        "normalized": 0.8421099220704298,
+        "runtime": NaN,
+        "menu": 1.2
+      },
+      "200": {
+        "normalized": 0.8661939025055688,
+        "runtime": NaN,
+        "menu": 1.1
+      }
+    },
+    "rivals": {
+      "sam": 0.8192314824053508,
+      "offer_all": 0.7838776322766178,
+      "offer_one": 0.7834682125306589,
+      "random": 0.7902579497917391
+    },
+    "omniscient": 0.6092555831074715
+  },
+  {
+    "epsilon": 0.4,
+    "seed": 6,
+    "milp": {
+      "25": {
+        "normalized": 0.7733786884596691,
+        "runtime": NaN,
+        "menu": 1.3
+      },
+      "50": {
+        "normalized": 0.7579668399059026,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "100": {
+        "normalized": 0.7717865914261647,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "200": {
+        "normalized": 0.7853748355285578,
+        "runtime": NaN,
+        "menu": 1.7
+      }
+    },
+    "rivals": {
+      "sam": 0.7922621303926801,
+      "offer_all": 0.7520117628059252,
+      "offer_one": 0.7384836431367259,
+      "random": 0.7503378050294682
+    },
+    "omniscient": 0.5336311144717037
+  },
+  {
+    "epsilon": 0.4,
+    "seed": 7,
+    "milp": {
+      "25": {
+        "normalized": 0.8129342226955151,
+        "runtime": NaN,
+        "menu": 1.3
+      },
+      "50": {
+        "normalized": 0.8249532955699341,
+        "runtime": NaN,
+        "menu": 1.2
+      },
+      "100": {
+        "normalized": 0.8168131494256322,
+        "runtime": NaN,
+        "menu": 0.9
+      },
+      "200": {
+        "normalized": 0.8536452200880522,
+        "runtime": NaN,
+        "menu": 0.9
+      }
+    },
+    "rivals": {
+      "sam": 0.8331788126855204,
+      "offer_all": 0.8397365925113536,
+      "offer_one": 0.7914969643220997,
+      "random": 0.8397365925113536
+    },
+    "omniscient": 0.5337843133583664
+  },
+  {
+    "epsilon": 0.4,
+    "seed": 8,
+    "milp": {
+      "25": {
+        "normalized": 0.8635916338538445,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "50": {
+        "normalized": 0.8613800719649957,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "100": {
+        "normalized": 0.849805086580582,
+        "runtime": NaN,
+        "menu": 1.9
+      },
+      "200": {
+        "normalized": 0.8640274907223606,
+        "runtime": NaN,
+        "menu": 2.0
+      }
+    },
+    "rivals": {
+      "sam": 0.8522385003662752,
+      "offer_all": 0.7886453745346219,
+      "offer_one": 0.763443796176568,
+      "random": 0.7345714765170225
+    },
+    "omniscient": 0.6445786900520325
+  },
+  {
+    "epsilon": 0.5,
+    "seed": 0,
+    "milp": {
+      "25": {
+        "normalized": 0.8424553507255838,
+        "runtime": NaN,
+        "menu": 1.9
+      },
+      "50": {
+        "normalized": 0.8329068249547259,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "100": {
+        "normalized": 0.8575455794023273,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "200": {
+        "normalized": 0.8455205292612017,
+        "runtime": NaN,
+        "menu": 2.0
+      }
+    },
+    "rivals": {
+      "sam": 0.7950962412920942,
+      "offer_all": 0.7539793926126392,
+      "offer_one": 0.8014910774254841,
+      "random": 0.808294183431678
+    },
+    "omniscient": 0.787724061191082
+  },
+  {
+    "epsilon": 0.5,
+    "seed": 1,
+    "milp": {
+      "25": {
+        "normalized": 0.9025785500300042,
+        "runtime": NaN,
+        "menu": 0.5
+      },
+      "50": {
+        "normalized": 0.8864851013725802,
+        "runtime": NaN,
+        "menu": 0.5
+      },
+      "100": {
+        "normalized": 0.9082601882598641,
+        "runtime": NaN,
+        "menu": 0.3
+      },
+      "200": {
+        "normalized": 0.9110387136980145,
+        "runtime": NaN,
+        "menu": 0.4
+      }
+    },
+    "rivals": {
+      "sam": 0.9052895253394291,
+      "offer_all": 0.9069498657327559,
+      "offer_one": 0.875445002426811,
+      "random": 0.9069498657327559
+    },
+    "omniscient": 0.3793075081389397
+  },
+  {
+    "epsilon": 0.5,
+    "seed": 2,
+    "milp": {
+      "25": {
+        "normalized": 0.7988479611081667,
+        "runtime": NaN,
+        "menu": 1.7
+      },
+      "50": {
+        "normalized": 0.769608961262116,
+        "runtime": NaN,
+        "menu": 1.8
+      },
+      "100": {
+        "normalized": 0.7910055797792764,
+        "runtime": NaN,
+        "menu": 1.8
+      },
+      "200": {
+        "normalized": 0.7825656753965046,
+        "runtime": NaN,
+        "menu": 1.9
+      }
+    },
+    "rivals": {
+      "sam": 0.7875582504772478,
+      "offer_all": 0.7992733980952712,
+      "offer_one": 0.7609126753562006,
+      "random": 0.7678599026800685
+    },
+    "omniscient": 0.5768030038103461
+  },
+  {
+    "epsilon": 0.5,
+    "seed": 3,
+    "milp": {
+      "25": {
+        "normalized": 0.8187239012381564,
+        "runtime": NaN,
+        "menu": 1.7
+      },
+      "50": {
+        "normalized": 0.8176774686714372,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "100": {
+        "normalized": 0.8426574043072178,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "200": {
+        "normalized": 0.8322021186159965,
+        "runtime": NaN,
+        "menu": 1.7
+      }
+    },
+    "rivals": {
+      "sam": 0.8178182557597128,
+      "offer_all": 0.8267532524059776,
+      "offer_one": 0.7208807834343797,
+      "random": 0.836066685389209
+    },
+    "omniscient": 0.6594012126624584
+  },
+  {
+    "epsilon": 0.5,
+    "seed": 4,
+    "milp": {
+      "25": {
+        "normalized": 0.8445133598459702,
+        "runtime": NaN,
+        "menu": 1.7
+      },
+      "50": {
+        "normalized": 0.860365990733439,
+        "runtime": NaN,
+        "menu": 1.8
+      },
+      "100": {
+        "normalized": 0.8478798248932975,
+        "runtime": NaN,
+        "menu": 1.8
+      },
+      "200": {
+        "normalized": 0.8491669855748196,
+        "runtime": NaN,
+        "menu": 1.7
+      }
+    },
+    "rivals": {
+      "sam": 0.8497143119939277,
+      "offer_all": 0.8461044675534141,
+      "offer_one": 0.7555182497261149,
+      "random": 0.8213503746522329
+    },
+    "omniscient": 0.6486455501616001
+  },
+  {
+    "epsilon": 0.5,
+    "seed": 5,
+    "milp": {
+      "25": {
+        "normalized": 0.8229763750685241,
+        "runtime": NaN,
+        "menu": 1.3
+      },
+      "50": {
+        "normalized": 0.8530580528358168,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "100": {
+        "normalized": 0.8235127244519652,
+        "runtime": NaN,
+        "menu": 1.8
+      },
+      "200": {
+        "normalized": 0.8259131365833501,
+        "runtime": NaN,
+        "menu": 1.5
+      }
+    },
+    "rivals": {
+      "sam": 0.8148139552645927,
+      "offer_all": 0.7679427002070341,
+      "offer_one": 0.7546946158908568,
+      "random": 0.7872679206759776
+    },
+    "omniscient": 0.6500590042099357
+  },
+  {
+    "epsilon": 0.5,
+    "seed": 6,
+    "milp": {
+      "25": {
+        "normalized": 0.7896831200844534,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "50": {
+        "normalized": 0.7559965925552853,
+        "runtime": NaN,
+        "menu": 1.6
+      },
+      "100": {
+        "normalized": 0.7452369952809329,
+        "runtime": NaN,
+        "menu": 1.8
+      },
+      "200": {
+        "normalized": 0.7835608437685437,
+        "runtime": NaN,
+        "menu": 1.6
+      }
+    },
+    "rivals": {
+      "sam": 0.7598186284025551,
+      "offer_all": 0.7456576899076782,
+      "offer_one": 0.7088081316459584,
+      "random": 0.7337157259108354
+    },
+    "omniscient": 0.5773238020911813
+  },
+  {
+    "epsilon": 0.5,
+    "seed": 7,
+    "milp": {
+      "25": {
+        "normalized": 0.807400017874108,
+        "runtime": NaN,
+        "menu": 1.5
+      },
+      "50": {
+        "normalized": 0.8618316147365441,
+        "runtime": NaN,
+        "menu": 1.3
+      },
+      "100": {
+        "normalized": 0.815573158241694,
+        "runtime": NaN,
+        "menu": 1.0
+      },
+      "200": {
+        "normalized": 0.8665656903327111,
+        "runtime": NaN,
+        "menu": 1.0
+      }
+    },
+    "rivals": {
+      "sam": 0.852873713893482,
+      "offer_all": 0.8544629809407361,
+      "offer_one": 0.7625428377882648,
+      "random": 0.8544629809407361
+    },
+    "omniscient": 0.5690705029014498
+  },
+  {
+    "epsilon": 0.5,
+    "seed": 8,
+    "milp": {
+      "25": {
+        "normalized": 0.8400122705294502,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "50": {
+        "normalized": 0.8592491572573205,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "100": {
+        "normalized": 0.8485916066725717,
+        "runtime": NaN,
+        "menu": 2.0
+      },
+      "200": {
+        "normalized": 0.8687245771350485,
+        "runtime": NaN,
+        "menu": 2.0
+      }
+    },
+    "rivals": {
+      "sam": 0.8465037487985486,
+      "offer_all": 0.7911271526649826,
+      "offer_one": 0.7353453592164385,
+      "random": 0.7170306245078566
+    },
+    "omniscient": 0.6939126623123885
+  }
+]

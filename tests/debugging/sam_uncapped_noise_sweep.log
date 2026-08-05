@@ -1,0 +1,387 @@
+N=1225 M=700 S=10 | 9 seeds x 25 trials | epsilon=[0.01, 0.1, 0.2, 0.3, 0.4, 0.5] | tau=0.1*epsilon
+variants: sam_k25, sam_uncapped, sam_k25_tau, sam_uncapped_tau
+54 (eps, seed) jobs on 54 workers, 2 LP threads each; scores computed once per job
+
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+Academic license - for non-commercial use only - expires 2026-09-17
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+  [1/54] (138s) eps=0.2 seed=5 k25=0.8716/24 uncapped=0.8770/80 k25_tau=0.8825/10 uncapped_tau=0.8886/19
+  [2/54] (139s) eps=0.2 seed=1 k25=0.8782/25 uncapped=0.8819/109 k25_tau=0.8815/11 uncapped_tau=0.8846/23
+  [3/54] (140s) eps=0.3 seed=5 k25=0.8437/25 uncapped=0.8627/176 k25_tau=0.8395/13 uncapped_tau=0.8447/22
+  [4/54] (140s) eps=0.1 seed=2 k25=0.9406/15 uncapped=0.9430/33 k25_tau=0.9248/9 uncapped_tau=0.9275/19
+  [5/54] (141s) eps=0.1 seed=1 k25=0.9223/22 uncapped=0.9230/54 k25_tau=0.9167/11 uncapped_tau=0.9165/25
+  [6/54] (141s) eps=0.1 seed=5 k25=0.9415/16 uncapped=0.9445/33 k25_tau=0.9270/10 uncapped_tau=0.9310/20
+  [7/54] (141s) eps=0.3 seed=1 k25=0.8483/25 uncapped=0.8703/215 k25_tau=0.8391/16 uncapped_tau=0.8455/31
+  [8/54] (142s) eps=0.3 seed=4 k25=0.8471/25 uncapped=0.8707/190 k25_tau=0.8379/15 uncapped_tau=0.8454/27
+  [9/54] (142s) eps=0.1 seed=6 k25=0.9431/16 uncapped=0.9462/37 k25_tau=0.9198/10 uncapped_tau=0.9186/23
+  [10/54] (143s) eps=0.2 seed=6 k25=0.8672/24 uncapped=0.8745/97 k25_tau=0.8885/10 uncapped_tau=0.8929/20
+  [11/54] (143s) eps=0.3 seed=7 k25=0.8475/25 uncapped=0.8692/190 k25_tau=0.8397/15 uncapped_tau=0.8456/26
+  [12/54] (143s) eps=0.2 seed=7 k25=0.8774/24 uncapped=0.8846/89 k25_tau=0.8850/12 uncapped_tau=0.8885/21
+  [13/54] (145s) eps=0.2 seed=8 k25=0.8754/24 uncapped=0.8797/81 k25_tau=0.8820/10 uncapped_tau=0.8871/19
+  [14/54] (145s) eps=0.1 seed=3 k25=0.9428/16 uncapped=0.9465/35 k25_tau=0.9341/11 uncapped_tau=0.9354/22
+  [15/54] (145s) eps=0.1 seed=0 k25=0.9460/16 uncapped=0.9498/35 k25_tau=0.9445/11 uncapped_tau=0.9492/23
+  [16/54] (145s) eps=0.3 seed=8 k25=0.8457/25 uncapped=0.8655/179 k25_tau=0.8369/13 uncapped_tau=0.8400/23
+  [17/54] (145s) eps=0.1 seed=4 k25=0.9308/17 uncapped=0.9306/39 k25_tau=0.9334/11 uncapped_tau=0.9311/23
+  [18/54] (146s) eps=0.4 seed=0 k25=0.8353/25 uncapped=0.8656/302 k25_tau=0.8263/19 uncapped_tau=0.8354/40
+  [19/54] (146s) eps=0.1 seed=7 k25=0.9429/17 uncapped=0.9433/36 k25_tau=0.9348/11 uncapped_tau=0.9335/22
+  [20/54] (147s) eps=0.2 seed=4 k25=0.8783/24 uncapped=0.8857/89 k25_tau=0.8817/11 uncapped_tau=0.8859/21
+  [21/54] (147s) eps=0.3 seed=2 k25=0.8416/25 uncapped=0.8605/158 k25_tau=0.8336/11 uncapped_tau=0.8373/19
+  [22/54] (147s) eps=0.5 seed=2 k25=0.8135/25 uncapped=0.8524/310 k25_tau=0.8020/17 uncapped_tau=0.8106/30
+  [23/54] (148s) eps=0.5 seed=3 k25=0.8203/25 uncapped=0.8607/352 k25_tau=0.8133/22 uncapped_tau=0.8351/63
+  [24/54] (148s) eps=0.2 seed=3 k25=0.8728/24 uncapped=0.8804/91 k25_tau=0.8894/11 uncapped_tau=0.8936/21
+  [25/54] (148s) eps=0.2 seed=0 k25=0.8761/23 uncapped=0.8811/83 k25_tau=0.8925/12 uncapped_tau=0.8990/21
+  [26/54] (149s) eps=0.4 seed=2 k25=0.8276/25 uncapped=0.8565/248 k25_tau=0.8147/14 uncapped_tau=0.8174/22
+  [27/54] (149s) eps=0.1 seed=8 k25=0.9410/16 uncapped=0.9446/35 k25_tau=0.9255/10 uncapped_tau=0.9278/22
+  [28/54] (149s) eps=0.5 seed=5 k25=0.8175/25 uncapped=0.8554/333 k25_tau=0.8106/20 uncapped_tau=0.8234/47
+  [29/54] (150s) eps=0.4 seed=5 k25=0.8294/25 uncapped=0.8598/272 k25_tau=0.8181/16 uncapped_tau=0.8243/30
+  [30/54] (152s) eps=0.4 seed=4 k25=0.8328/25 uncapped=0.8657/302 k25_tau=0.8236/19 uncapped_tau=0.8360/40
+  [31/54] (153s) eps=0.5 seed=4 k25=0.8215/25 uncapped=0.8612/363 k25_tau=0.8170/22 uncapped_tau=0.8348/66
+  [32/54] (153s) eps=0.5 seed=7 k25=0.8204/25 uncapped=0.8609/359 k25_tau=0.8138/22 uncapped_tau=0.8353/65
+  [33/54] (154s) eps=0.5 seed=6 k25=0.8140/25 uncapped=0.8560/338 k25_tau=0.8078/20 uncapped_tau=0.8228/47
+  [34/54] (154s) eps=0.01 seed=3 k25=0.9813/13 uncapped=0.9720/26 k25_tau=0.9578/11 uncapped_tau=0.9493/22
+  [35/54] (154s) eps=0.4 seed=1 k25=0.8341/25 uncapped=0.8665/317 k25_tau=0.8261/20 uncapped_tau=0.8376/48
+  [36/54] (155s) eps=0.4 seed=6 k25=0.8291/25 uncapped=0.8607/279 k25_tau=0.8192/17 uncapped_tau=0.8251/32
+  [37/54] (155s) eps=0.01 seed=6 k25=0.9831/13 uncapped=0.9711/28 k25_tau=0.9604/10 uncapped_tau=0.9469/23
+  [38/54] (155s) eps=0.2 seed=2 k25=0.8689/23 uncapped=0.8766/77 k25_tau=0.8794/9 uncapped_tau=0.8850/17
+  [39/54] (156s) eps=0.4 seed=8 k25=0.8329/25 uncapped=0.8621/289 k25_tau=0.8219/18 uncapped_tau=0.8285/33
+  [40/54] (157s) eps=0.01 seed=0 k25=0.9911/13 uncapped=0.9883/26 k25_tau=0.9688/10 uncapped_tau=0.9674/21
+  [41/54] (158s) eps=0.4 seed=7 k25=0.8343/25 uncapped=0.8653/297 k25_tau=0.8232/18 uncapped_tau=0.8340/38
+  [42/54] (158s) eps=0.5 seed=1 k25=0.8198/25 uncapped=0.8606/375 k25_tau=0.8158/22 uncapped_tau=0.8369/75
+  [43/54] (159s) eps=0.01 seed=8 k25=0.9856/13 uncapped=0.9815/28 k25_tau=0.9667/10 uncapped_tau=0.9626/22
+  [44/54] (159s) eps=0.3 seed=6 k25=0.8421/25 uncapped=0.8633/189 k25_tau=0.8365/13 uncapped_tau=0.8413/24
+  [45/54] (160s) eps=0.01 seed=7 k25=0.9844/14 uncapped=0.9748/27 k25_tau=0.9710/10 uncapped_tau=0.9612/21
+  [46/54] (162s) eps=0.01 seed=2 k25=0.9817/13 uncapped=0.9721/25 k25_tau=0.9647/8 uncapped_tau=0.9559/19
+  [47/54] (164s) eps=0.01 seed=4 k25=0.9889/14 uncapped=0.9796/31 k25_tau=0.9867/11 uncapped_tau=0.9769/25
+  [48/54] (165s) eps=0.5 seed=0 k25=0.8231/25 uncapped=0.8605/362 k25_tau=0.8188/22 uncapped_tau=0.8383/70
+  [49/54] (166s) eps=0.4 seed=3 k25=0.8317/25 uncapped=0.8646/295 k25_tau=0.8240/18 uncapped_tau=0.8336/39
+  [50/54] (167s) eps=0.3 seed=3 k25=0.8466/25 uncapped=0.8672/193 k25_tau=0.8425/14 uncapped_tau=0.8486/25
+  [51/54] (168s) eps=0.3 seed=0 k25=0.8490/25 uncapped=0.8689/195 k25_tau=0.8460/14 uncapped_tau=0.8526/26
+  [52/54] (168s) eps=0.01 seed=5 k25=0.9867/13 uncapped=0.9804/26 k25_tau=0.9678/9 uncapped_tau=0.9612/20
+  [53/54] (170s) eps=0.5 seed=8 k25=0.8164/25 uncapped=0.8569/353 k25_tau=0.8096/21 uncapped_tau=0.8285/54
+  [54/54] (184s) eps=0.01 seed=1 k25=0.9853/15 uncapped=0.9783/36 k25_tau=0.9712/11 uncapped_tau=0.9592/28
+
+================================================================================================
+NORMALIZED UTILITY vs EPSILON (mean across 9 seeds; SE <= 0.003 throughout)
+================================================================================================
+policy                   eps=0.01    eps=0.1    eps=0.2    eps=0.3    eps=0.4    eps=0.5
+sam_k25                    0.9853     0.9390     0.8740     0.8457     0.8319     0.8185
+sam_uncapped               0.9775     0.9413     0.8802     0.8665     0.8630     0.8583
+sam_k25_tau                0.9683     0.9290     0.8847     0.8391     0.8219     0.8121
+sam_uncapped_tau           0.9601     0.9301     0.8895     0.8445     0.8302     0.8295
+offer_everything           0.9172     0.9028     0.8830     0.8692     0.8650     0.8596
+sam                        0.9852     0.9390     0.8740     0.8456     0.8318     0.8185
+offer_all                  0.8864     0.8493     0.8070     0.7769     0.7680     0.7616
+offer_one                  0.9898     0.9027     0.8121     0.7436     0.7117     0.6895
+random                     0.8477     0.8109     0.7790     0.7685     0.7873     0.8083
+
+================================================================================================
+PLANNED MENU SIZE (providers offered per patient, before capacity masking)
+================================================================================================
+variant                    tau   eps=0.01    eps=0.1    eps=0.2    eps=0.3    eps=0.4    eps=0.5
+sam_k25                      0       13.5       16.7       23.9       24.9       25.0       25.0
+sam_uncapped                 0       28.1       37.3       88.5      187.2      289.1      349.5
+sam_k25_tau             0.1eps        9.9       10.3       10.8       13.6       17.6       21.0
+sam_uncapped_tau        0.1eps       22.3       22.0       20.3       24.9       35.7       57.3
+
+variant                          eps=0.01    eps=0.1    eps=0.2    eps=0.3    eps=0.4    eps=0.5   (% of patients offered a non-empty menu)
+sam_k25                             90.3%      95.8%      99.7%      99.9%     100.0%     100.0%
+sam_uncapped                        90.3%      95.8%      99.7%      99.9%     100.0%     100.0%
+sam_k25_tau                         69.5%      73.6%      80.9%      87.9%      93.6%      96.1%
+sam_uncapped_tau                    69.5%      73.6%      80.9%      87.9%      93.6%      96.1%
+
+================================================================================================
+PAIRED DIFFERENCES IN NORMALIZED UTILITY (per seed; t in parentheses)
+================================================================================================
+
+sam_k25 - sam   (reproduction check -- should be ~0)
+              eps=0.01           eps=0.1           eps=0.2           eps=0.3           eps=0.4           eps=0.5
+      +0.0001 (  +0.9)  +0.0000 (  +0.0)  +0.0000 (  +nan)  +0.0001 (  +2.4)  +0.0002 (  +1.0)  -0.0000 (  -1.0)
+
+sam_uncapped - sam_k25   (removing the k=25 cap)
+              eps=0.01           eps=0.1           eps=0.2           eps=0.3           eps=0.4           eps=0.5
+      -0.0078 (  -7.9)  +0.0023 (  +4.4)  +0.0062 ( +11.9)  +0.0207 ( +40.4)  +0.0311 ( +61.9)  +0.0398 ( +79.4)
+
+sam_uncapped - offer_everything   (uncapped SAM vs uncapped offer-everything)
+              eps=0.01           eps=0.1           eps=0.2           eps=0.3           eps=0.4           eps=0.5
+      +0.0603 ( +35.1)  +0.0385 ( +11.4)  -0.0028 (  -5.9)  -0.0027 (  -9.1)  -0.0020 ( -14.5)  -0.0013 (  -9.4)
+
+sam_k25_tau - sam_k25   (the tau floor at k=25)
+              eps=0.01           eps=0.1           eps=0.2           eps=0.3           eps=0.4           eps=0.5
+      -0.0170 (  -7.7)  -0.0100 (  -3.7)  +0.0108 (  +5.2)  -0.0067 (  -8.2)  -0.0100 ( -17.4)  -0.0064 (  -8.5)
+
+sam_uncapped_tau - sam_uncapped   (the tau floor with no k)
+              eps=0.01           eps=0.1           eps=0.2           eps=0.3           eps=0.4           eps=0.5
+      -0.0175 (  -8.2)  -0.0112 (  -3.9)  +0.0093 (  +4.3)  -0.0220 ( -19.0)  -0.0328 ( -28.9)  -0.0288 ( -14.3)
+
+sam_uncapped_tau - sam_k25   (best variant vs Algorithm 1 as published)
+              eps=0.01           eps=0.1           eps=0.2           eps=0.3           eps=0.4           eps=0.5
+      -0.0253 ( -11.4)  -0.0089 (  -3.3)  +0.0155 (  +6.8)  -0.0012 (  -1.2)  -0.0017 (  -1.1)  +0.0110 (  +5.3)
+
+wrote /usr0/home/naveenr/projects/patient_provider_new/results/noise_sam_uncapped/ (184s total)

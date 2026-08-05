@@ -1,0 +1,9 @@
+
+======================================================================
+PASS: MILP matched the brute-force optimum on all 4 cases.
+=== timing production-scale solves (N=20 M=10 k=5 S=25), all cores, eps=0.5 (worst case) ===
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17

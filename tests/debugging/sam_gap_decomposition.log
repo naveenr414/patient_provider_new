@@ -1,0 +1,58 @@
+/usr0/home/naveenr/projects/patient_provider_new/patient/data_gen.py:45: DtypeWarning: Columns (15) have mixed types. Specify dtype option on import or set low_memory=False.
+  medicare = pd.read_csv(DATA_DIR / "medicare_data.csv", dtype={"ZIP Code": str})
+N=1225 M=700 k=25 epsilon=0.25 S=10 | seeds=[0, 1, 2] | 8 thetas x 8 sigmas (crossed)
+
+Set parameter Username
+Set parameter LicenseID to value 2709943
+Academic license - for non-commercial use only - expires 2026-09-17
+/usr0/home/naveenr/projects/patient_provider_new/tests/debugging/sam_gap_decomposition.py:181: RuntimeWarning: invalid value encountered in sqrt
+  rows.append((sd, sd * np.sqrt(f_t), sd * np.sqrt(f_s), sd * np.sqrt(f_i),
+  [sam      ] seed 0: OPT=0.7225 LP(X)=0.7136 V=0.6207 menu=24.4
+  [offer_all] seed 0: OPT=0.7225 LP(X)=0.6548 V=0.5677 menu=25.0
+  [offer_one] seed 0: OPT=0.7225 LP(X)=0.5580 V=0.5580 menu=0.6
+  seed 0 done in 481s
+
+  [sam      ] seed 1: OPT=0.7202 LP(X)=0.7099 V=0.6204 menu=24.8
+  [offer_all] seed 1: OPT=0.7202 LP(X)=0.6451 V=0.5585 menu=25.0
+  [offer_one] seed 1: OPT=0.7202 LP(X)=0.5502 V=0.5502 menu=0.6
+  seed 1 done in 472s
+
+  [sam      ] seed 2: OPT=0.6854 LP(X)=0.6763 V=0.5848 menu=24.3
+  [offer_all] seed 2: OPT=0.6854 LP(X)=0.6223 V=0.5371 menu=25.0
+  [offer_one] seed 2: OPT=0.6854 LP(X)=0.5296 V=0.5296 menu=0.5
+  seed 2 done in 474s
+
+==============================================================================
+1. DECOMPOSITION OF THE GAP TO OMNISCIENT  (mean per-patient utility)
+==============================================================================
+policy         OPT   LP(X)       V |   OPT-V    menu  decent. |  menu%   dec% |  V/OPT LP(X)/OPT
+sam         0.7094  0.6999  0.6086 |  0.1008  0.0095   0.0913 |   9.4%  90.6% | 0.8580    0.9867
+offer_all   0.7094  0.6407  0.5544 |  0.1549  0.0686   0.0863 |  44.3%  55.7% | 0.7816    0.9032
+offer_one   0.7094  0.5459  0.5459 |  0.1634  0.1634   0.0000 | 100.0%   0.0% | 0.7696    0.7696
+
+per-instance-seed menu-loss share of the total gap:
+  sam          8.7%  10.4%   9.1%
+  offer_all   43.7%  46.5%  42.6%
+  offer_one  100.0% 100.0% 100.0%
+
+==============================================================================
+2. VARIATION FROM theta VS FROM sigma  (crossed design, within instance)
+==============================================================================
+policy        sd(V)  sd_theta  sd_sigma  sd_inter |  theta%  sigma%  inter%
+sam         0.00361   0.00275   0.00106   0.00193 |   56.0%   10.7%   33.4%
+offer_all   0.00330   0.00213   0.00137   0.00207 |   41.9%   18.5%   39.5%
+offer_one   0.00355   0.00355   0.00000       nan |  100.0%    0.0%    0.0%
+
+same decomposition for V/OPT(theta) (the plotted quantity):
+policy      sd(V/OPT) |  theta%  sigma%  inter%
+sam           0.00487 |   55.7%   10.2%   34.1%
+offer_all     0.00421 |   28.8%   21.5%   49.7%
+offer_one     0.00426 |  100.0%    0.0%    0.0%
+
+sd across theta of (averaged over sigma):
+policy          OPT    LP(X)        V    V/OPT  corr(V,OPT)
+sam         0.00231  0.00332  0.00275  0.00365        0.481
+offer_all   0.00231  0.00262  0.00213  0.00224        0.677
+offer_one   0.00231  0.00355  0.00355  0.00426        0.546
+
+saved /usr0/home/naveenr/projects/patient_provider_new/tests/debugging/sam_gap_decomposition.npz

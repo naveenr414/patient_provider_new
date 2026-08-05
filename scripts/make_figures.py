@@ -33,7 +33,11 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from patient.plotting import (create_axes, create_legend, plot_bar, plot_kde,
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
+
+from patient.plotting import (color_schemes, create_axes, create_legend,
+                              markers as plot_markers, plot_bar, plot_kde,
                               plot_line, plot_scatter)
 
 REPO_DIR = Path(__file__).resolve().parent.parent
@@ -42,11 +46,12 @@ FIGURES_DIR = RESULTS_DIR / "figures"
 DATA_DIR = REPO_DIR / "data"
 
 POLICY_ORDER = ["random", "offer_one", "offer_all", "sam", "deferred_acceptance",
-                "capacity_greedy", "exact_saa_milp"]
+                "capacity_greedy", "exact_saa_milp", "offer_everything", "sam_uncapped"]
 POLICY_LABELS = {
     "random": "Random", "offer_one": "Offer-One", "offer_all": "Offer-All", "sam": "SAM",
     "deferred_acceptance": "Deferred Acceptance", "capacity_greedy": "Capacity-Greedy",
     "exact_saa_milp": "SAA-MILP",
+    "offer_everything": "Offer-Everything ($k{=}M$)", "sam_uncapped": "SAM ($k{=}M$)",
 }
 # The reference implementation colours by position in its method list, not by
 # policy identity, so a figure's colours depend on which policies it shows.
@@ -169,6 +174,61 @@ def line_panels(panels, x_key, y_key, xlabels, ylabel, save_path,
     _save(fig, save_path)
 
 
+def metric_panels(records, x_key, y_keys, xlabel, ylabels, save_path,
+                  policies=None, figsize=None, log_x=False, log_y=None,
+                  legend_ncol=None):
+    """`line_panels`' sibling: one panel per METRIC of a single record set,
+    rather than one panel per record set of a single metric. Used when two
+    quantities swept over the same x belong side by side (utility and the menu
+    size that produced it).
+
+    A policy with no value for a panel's metric is simply absent from that
+    panel -- which is why `policies` order matters: `patient.plotting` assigns
+    colour and marker by position in the list it receives, so policies present
+    in every panel should be listed FIRST, and the partial ones last, or a
+    policy changes colour from panel to panel."""
+    if not records:
+        print(f"skip {save_path.name}: no data")
+        return
+    policies = policies or _sorted_policies(records)
+    n = len(y_keys)
+    dims = (1, n)
+    fig, ax = create_axes(
+        dims,
+        {"figsize": figsize or (5 * n, 2), "style_size": "paper",
+         "hide_spines": True, "has_grid": True},
+        x_labels=[[xlabel] * n],
+        y_labels=[list(ylabels)],
+    )
+    for col, y_key in enumerate(y_keys):
+        xs, ys, errs, labels = [], [], [], []
+        for policy in policies:
+            pts = sorted((r for r in records
+                          if r["policy"] == policy and y_key in r["agg"]),
+                         key=lambda r: r[x_key])
+            if not pts:
+                continue
+            xs.append([r[x_key] for r in pts])
+            ys.append([r["agg"][y_key] for r in pts])
+            errs.append([r["agg"].get(f"{y_key}_se", 0.0) for r in pts])
+            labels.append(POLICY_LABELS.get(policy, policy))
+        plot_line(ax[0][col], xs, ys, errs, labels, LINE_FORMAT)
+        plot_scatter(ax[0][col], xs, ys, [], SCATTER_FORMAT)
+        if log_x:
+            ax[0][col].set_xscale("log")
+        if log_y and log_y[col]:
+            ax[0][col].set_yscale("log")
+    # Every panel carries its own y label (unlike `line_panels`, where only
+    # the first does), so the default spacing puts the right panel's label on
+    # top of the left panel's ticks. Widen the gap explicitly rather than with
+    # tight_layout(): the global legend is an out-of-axes figure artist, and
+    # tight_layout lays out as though it were not there, which then clips the
+    # y labels once `_save` applies bbox_inches='tight'.
+    fig.subplots_adjust(wspace=0.35)
+    _legend(fig, ax, dims, ncol=legend_ncol or len(policies), anchor=(0.48, -0.25))
+    _save(fig, save_path)
+
+
 def bar_panels(panels, y_keys, titles, save_path, policies=None, figsize=(9, 1.5)):
     """One panel per (y_key, title); one bar per policy within each panel.
     Bars are grouped the reference way: each policy is its own bar 'group', so
@@ -269,6 +329,188 @@ def make_noise_sweep(results_dir, out_dir):
                 ["Noise Level ($\\epsilon$)"], "Norm. Utility",
                 out_dir / "utility_vs_noise.pdf", figsize=(5.5, 2),
                 policies=MAIN_FOUR)
+
+
+def make_noise_uncapped(results_dir, out_dir):
+    """The noise sweep with the k=25 policies and the two uncapped (k=M) ones
+    on the same axes: what the menu-size budget is actually costing.
+
+    The second panel is how big the menus actually got. It is the reason the
+    first one looks the way it does, and it is the only place SAM's menu size
+    is plotted: SAM is the one policy whose menu is not simply min(k, live),
+    because Algorithm 1's `m_ij > 0` test can stop short of the budget.
+
+    Six lines is the palette's limit -- `patient.plotting` asserts on a
+    seventh -- so this stays at the four main policies plus the two uncapped
+    ones."""
+    records = load_experiment(results_dir / "noise")
+    uncapped = load_experiment(results_dir / "noise_uncapped")
+    if not uncapped:
+        print("skip utility_vs_noise_uncapped.pdf: no data")
+        return
+    metric_panels([r for r in records if r["policy"] in MAIN_FOUR] + uncapped,
+                  "epsilon", ["normalized_utility", "menu_planned"],
+                  "Noise Level ($\\epsilon$)", ["Norm. Utility", "Menu Size"],
+                  out_dir / "utility_vs_noise_uncapped.pdf",
+                  policies=MAIN_FOUR + ["offer_everything", "sam_uncapped"],
+                  figsize=(9, 2.2), log_y=[False, True], legend_ncol=3)
+
+
+def make_menu_budget(results_dir, out_dir):
+    """Menu budget k from 1 to M at the default epsilon: utility against k,
+    and the menu size each policy actually plans against k.
+
+    The second panel is the point of the figure. k is only an upper bound --
+    offer_one ignores it, and SAM's `m_ij > 0` test can stop well short of it
+    -- so "menu size" and "k" are the same number only for the policies that
+    always fill their budget. Both axes are log: k spans 1 to 700."""
+    records = load_experiment(results_dir / "menu_budget")
+    metric_panels(records, "k", ["normalized_utility", "menu_planned"],
+                  "Menu Budget ($k$)", ["Norm. Utility", "Menu Size"],
+                  out_dir / "utility_vs_menu_budget.pdf",
+                  policies=MAIN_FOUR, figsize=(9, 2.2),
+                  log_x=True, log_y=[False, True])
+
+
+def _decomposition(records, policy):
+    """Per-epsilon mean and SE of the three additive-error terms for one
+    policy, computed from PER-SEED values and only then averaged.
+
+    Every term is a difference of quantities the same seed produced, so
+    differencing first is what makes them paired -- the seed-to-seed spread of
+    OPT alone (SE ~0.004) dwarfs the spread of the differences, and averaging
+    first would drown the effect in it."""
+    eps = sorted({r["epsilon"] for r in records if r["policy"] == policy})
+    cols = {key: ([], []) for key in ("total", "coverage", "coordination")}
+    for e in eps:
+        rec = next(r for r in records
+                   if r["policy"] == policy and r["epsilon"] == e)
+        terms = {key: [] for key in cols}
+        for row in rec["per_seed"]:
+            opt, lp, v = (row["omniscient_utility"], row["lp_menu_utility"],
+                          row["utility"])
+            terms["total"].append(opt - v)           # whole shortfall
+            terms["coverage"].append(opt - lp)       # the menu lacks the pairs
+            terms["coordination"].append(lp - v)     # patients don't coordinate
+        for key, vals in terms.items():
+            vals = np.asarray(vals)
+            cols[key][0].append(vals.mean())
+            cols[key][1].append(vals.std(ddof=1) / np.sqrt(len(vals)))
+    return eps, cols
+
+
+def make_error_decomposition(results_dir, out_dir):
+    """Each policy's additive shortfall against the omniscient, split into the
+    two things a menu policy can get wrong.
+
+        OPT(theta) - V  =  [OPT(theta) - LP(X, theta)]  +  [LP(X, theta) - V]
+                                 coverage                    coordination
+
+    LP(X, theta) is the best assignment reachable inside the menu X the policy
+    committed to, if the realized theta were known. Both brackets are
+    non-negative (see `metrics.menu_restricted_lp_utility`), so the split is a
+    true partition of the error and stacks.
+
+    COVERAGE is what the menu fails to contain: offer_one's one column per
+    patient is the extreme, and a menu large enough to hold the omniscient
+    assignment drives it to zero. COORDINATION is what uncoordinated choice
+    costs even when the menu does contain a good assignment: patients arrive
+    in random order and each takes their own best available option. The two
+    trade off directly -- widening a menu can only reduce coverage loss and
+    can only increase the scope for patients to collide.
+
+    Four panels ON A COMMON Y SCALE, which is the whole point of the layout:
+    the three line panels (total, then each term) are only comparable by eye
+    if a centimetre means the same error everywhere, and the shared scale is
+    what shows at a glance that SAM's coverage panel is empty while its
+    coordination panel carries its whole error. The fourth panel stacks the
+    two terms so the sum back to the total is visible.
+
+    Two policies are load-bearing checks: offer_one's coordination term must
+    be 0 to numerical precision, and offer_all's coverage term must be small.
+    """
+    records = load_experiment(results_dir / "error_decomposition")
+    if not records:
+        print("skip error_decomposition.pdf: no data")
+        return
+    if "lp_menu_utility" not in records[0]["per_seed"][0]:
+        print("skip error_decomposition.pdf: results predate lp_menu_utility; "
+              "re-run `--experiment error_decomposition`")
+        return
+
+    policies = [p for p in MAIN_FOUR if p in {r["policy"] for r in records}]
+    colors = color_schemes[PALETTE]
+    series = {p: _decomposition(records, p) for p in policies}
+    eps = series[policies[0]][0]
+
+    dims = (1, 4)
+    xlabel = "Noise Level ($\\epsilon$)"
+    fig, ax = create_axes(
+        dims,
+        {"figsize": (15, 2.8), "style_size": "paper", "hide_spines": True,
+         "has_grid": True},
+        x_labels=[[xlabel] * 4],
+        y_labels=[["Additive Error", "", "", ""]],
+        titles=[["Total:  $OPT(\\theta) - V$",
+                 "Coverage:  $OPT(\\theta) - LP(X)$",
+                 "Coordination:  $LP(X) - V$",
+                 "Stacked"]],
+    )
+
+    # ---- panels 1-3: one term each, one line per policy --------------------
+    for col, key in enumerate(("total", "coverage", "coordination")):
+        xs = [eps] * len(policies)
+        ys = [series[p][1][key][0] for p in policies]
+        errs = [series[p][1][key][1] for p in policies]
+        labels = [POLICY_LABELS[p] for p in policies]
+        plot_line(ax[0][col], xs, ys, errs, labels, LINE_FORMAT)
+        plot_scatter(ax[0][col], xs, ys, [], SCATTER_FORMAT)
+
+    # ---- panel 4: the two terms stacked, so they visibly sum to the total ---
+    # Groups are spaced by index, not by the epsilon value, so the uneven grid
+    # (0.01 then 0.1, 0.2, ...) does not squash the first group against the
+    # second.
+    width = 0.8 / len(policies)
+    idx = np.arange(len(eps))
+    for i, policy in enumerate(policies):
+        cols = series[policy][1]
+        offset = (i - (len(policies) - 1) / 2) * width
+        cov = np.array(cols["coverage"][0])
+        coord = np.array(cols["coordination"][0])
+        ax[0][3].bar(idx + offset, cov, width * 0.9, color=colors[i],
+                     edgecolor="white", linewidth=0.4, zorder=2)
+        ax[0][3].bar(idx + offset, coord, width * 0.9, bottom=cov, color=colors[i],
+                     edgecolor="white", linewidth=0.4, hatch="///", alpha=0.55,
+                     zorder=2)
+    ax[0][3].set_xticks(idx)
+    ax[0][3].set_xticklabels([f"{e:g}" for e in eps])
+
+    # ---- the common scale --------------------------------------------------
+    # Taken from the data and rounded up rather than pinned at a round 0.2:
+    # offer_one's total reaches 0.249, and a shared axis that clipped the
+    # single largest error in the figure would be worse than a slightly less
+    # tidy limit.
+    top = max(max(series[p][1]["total"][0]) for p in policies)
+    ymax = np.ceil(top / 0.02) * 0.02
+    for col in range(4):
+        ax[0][col].set_ylim(0, ymax)
+        if col:
+            ax[0][col].set_yticklabels([])
+
+    fig.subplots_adjust(wspace=0.12)
+    # Built by hand: the legend has to name two different encodings (policy
+    # colour, and term-as-hatch), which `create_legend` -- which reads handles
+    # off one axis and assumes one entry per line -- cannot do. Styling
+    # matches it (global figure legend, size 12, anchored below).
+    handles = [Line2D([0], [0], color=colors[i], marker=plot_markers[i], linewidth=2)
+               for i in range(len(policies))]
+    labels = [POLICY_LABELS[p] for p in policies]
+    handles += [Patch(facecolor="0.45", edgecolor="white"),
+                Patch(facecolor="0.45", edgecolor="white", hatch="///", alpha=0.55)]
+    labels += ["Coverage (stacked panel)", "Coordination (stacked panel)"]
+    fig.legend(handles, labels, loc="upper center", ncol=6,
+               bbox_to_anchor=(0.5, -0.13), fontsize=12)
+    _save(fig, out_dir / "error_decomposition.pdf")
 
 
 def make_market_dynamics(results_dir, out_dir):
@@ -486,6 +728,9 @@ FIGURES = {
     "main_comparison": make_main_comparison,
     "fairness_gini": make_fairness_gini,
     "noise_sweep": make_noise_sweep,
+    "noise_uncapped": make_noise_uncapped,
+    "error_decomposition": make_error_decomposition,
+    "menu_budget": make_menu_budget,
     "market_dynamics": make_market_dynamics,
     "choice_model": make_choice_model,
     "choice_distributions": make_choice_distributions,

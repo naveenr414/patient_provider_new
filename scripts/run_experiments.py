@@ -17,13 +17,21 @@ utility=0.25, epsilon=0.25, k=25, S=10) are taken verbatim from EC.1. Sweep
 grids come from the axis ticks/values stated in Section 6 and EC.2. Values the
 paper never states, and the defaults used instead, are flagged at their
 definition: DEFAULT_ALPHA, DEFAULT_CLIP_DISTANCE_TERM, DEFAULT_MNL_TEMPERATURE,
-and --small-M / --small-k.
+and --small-M / --small-k. --small-N deliberately departs from the paper's
+stated 20 (see its help text).
 
 Experiments are named for what they vary, not for the figure number they end
 up in, and several figures share one run: the four default-config figures all
 read `default`, and the main-text and EC.2.5 versions of the noise and
 patient/provider-ratio figures are subsets of `noise` and
 `patient_provider_ratio` rather than separate sweeps.
+
+Three experiments are NOT from the paper and are flagged as such at their
+definitions. `noise_uncapped` and `menu_budget` measure what the k=25
+menu-size budget is worth -- the first by removing it at every epsilon, the
+second by sweeping k from 1 to M at the default epsilon. `error_decomposition`
+splits each policy's shortfall against the omniscient into the part its menu's
+coverage costs and the part uncoordinated patient choice costs.
 
 Usage:
     python scripts/run_experiments.py --experiment default
@@ -67,7 +75,20 @@ DEFAULT_MILP_S = 25
 # Hard wall-clock cap on a single SAA-MILP solve. Without it one unlucky
 # instance can hold up an entire sweep; with it the solver returns its best
 # incumbent and prints the gap it reached (see `policies.exact_saa_milp`).
-DEFAULT_MILP_TIME_LIMIT = 300
+#
+# 300 s was far too tight: at the old N=20, M=10, k=5, S=25 scale it truncated
+# 41 of the 54 solves in the 9-seed sweep (median gap 6%, max 10%), and a
+# truncated "optimum" is not an optimum -- every heuristic scored ABOVE it at
+# some epsilon, ratios up to 1.031, which is impossible against a true optimum.
+# That is why the panel now runs at N=10, M=5, k=2 (see --small-N): the MILP
+# has to actually close for the ratio to mean anything, and a smaller instance
+# buys that far more reliably than a longer clock.
+# Combined with `exact_saa_milp`'s threads now defaulting to all cores rather
+# than 1, this should let the solves close. Verify with
+#   grep -c "exact_saa_milp stopped" results/logs/noise_exact_small_*.log
+# after a run; anything above 0 means the approximation-ratio figure is
+# reporting a truncated denominator.
+DEFAULT_MILP_TIME_LIMIT = 3600
 DEFAULT_AVERAGE_DISTANCE = 20.2
 DEFAULT_OMEGA = 0.5
 DEFAULT_EXIT_UTILITY = 0.25
@@ -146,7 +167,7 @@ def build_instance(N, M, seed, average_distance, omega, exit_utility, avg_capaci
 
 def run_one_seed(policy_name, policy_fn, policy_kwargs, N, M, k, epsilon, seed,
                   num_trials, gamma=None, instance_kwargs=None, extra_metrics_fn=None,
-                  omniscient=None):
+                  omniscient=None, restricted_lp=False):
     """Run a single seed/instance of one (policy, config): builds theta_hat
     (the platform's fixed estimate), plans a menu from it, replays
     `num_trials` trials each with its own realized theta and arrival order
@@ -190,7 +211,20 @@ def run_one_seed(policy_name, policy_fn, policy_kwargs, N, M, k, epsilon, seed,
         "match_rate": MET.match_rate(out["chosen"], M),
         "choice_count_mean": float(MET.choice_count(out["effective_menus"]).mean()),
         "choice_utility_mean": float(np.nanmean(choice_util)),
+        # Providers per planned menu, before the simulator intersects it with
+        # live capacity and before the exit option is added -- i.e. the menu
+        # size the POLICY chose, which is what a k sweep is about. Distinct
+        # from choice_count_mean, which is what a patient actually finds
+        # available on arrival (capacity-masked, exit included) and so is
+        # always the smaller, later quantity.
+        "menu_planned": float(out["menus"].sum(axis=1).mean()),
     }
+    if restricted_lp:
+        # Off by default: it is num_trials extra LPs per seed, worth paying
+        # only for the error-decomposition figure. See
+        # `metrics.menu_restricted_lp_utility` for what it means.
+        rec["lp_menu_utility"] = MET.menu_restricted_lp_utility(
+            theta_realized, capacities, out["menus"])
     if patients is not None:
         zips = [p["zip"] for p in patients]
         fair = MET.zip_fairness(out["chosen"], M, zips, rewards=out["rewards"])
@@ -362,16 +396,63 @@ def _policy_kwargs(policy_name, extra_pkwargs, epsilon, S):
     return pkwargs
 
 
+def load_omniscient_cache(out_dir, num_trials):
+    """{(config_key, seed): E_theta[OPT(theta)]} harvested from result files
+    other experiments already wrote under `out_dir`.
+
+    The normalizer depends only on (N, M, epsilon, instance params, seed,
+    num_trials) -- the theta realizations and capacities, nothing about the
+    policy -- so the same number is recomputed by every experiment that shares
+    a configuration. It is also the single most expensive thing a sweep does
+    (num_trials full-size LPs per seed), which makes the duplication worth
+    eliminating across experiments and not just within one.
+
+    A result only contributes if it recorded the instance parameters it was
+    built with (the "instance" field, written by `sweep`). Without them a file
+    at the same N/M/epsilon could still be a different environment -- the
+    exit_option, provider_capacity and comorbidity_weight sweeps all vary
+    instance parameters while holding N, M and epsilon fixed -- and silently
+    normalizing by another environment's optimum would be far worse than
+    re-solving. Older files predating that field are therefore skipped, so
+    the cache degrades to "no reuse" rather than to a wrong answer."""
+    cache = {}
+    out_dir = Path(out_dir)
+    if not out_dir.exists():
+        return cache
+    for path in sorted(out_dir.glob("*/*.json")):
+        if path.name.startswith("_"):
+            continue
+        try:
+            d = json.loads(path.read_text())
+        except (ValueError, OSError):
+            continue
+        instance = d.get("instance")
+        if instance is None or d.get("num_trials") != num_trials:
+            continue
+        key = (d["N"], d["M"], d["epsilon"], tuple(sorted(instance.items())))
+        for row in d.get("per_seed", []):
+            value = row.get("omniscient_utility")
+            if value is None or not np.isfinite(value):
+                continue
+            cache.setdefault((key, row["seed"]), float(value))
+    return cache
+
+
 # ---------------------------------------------------------------------------
 # Generic sweep runner: for experiments that are "policies x grid of scalar
 # params" with only the aggregate metrics needed downstream.
 # ---------------------------------------------------------------------------
 def sweep(experiment, policies, param_grid, base, num_seeds, num_trials, out_dir,
-          jobs=1, extra_metrics_fn=None):
+          jobs=1, extra_metrics_fn=None, run_kwargs=None):
     """param_grid: dict of {param_name: [values]} swept via a full cartesian
     product; each grid point overrides `base`'s N/M/k/epsilon/S/gamma or an
     instance-construction param (average_distance/omega/exit_utility/
     avg_capacity/alpha/clip_distance_term/distribution).
+
+    run_kwargs: extra keyword arguments passed to every `run_one_seed` call,
+    for options that change what is MEASURED rather than what is run (e.g.
+    restricted_lp=True). Kept separate from `base` because those are config
+    values that end up in the saved result's identity.
 
     Every (grid point, policy, seed) is one independent job, and so is every
     (grid point, seed) omniscient solve; they all go into a single pool, so a
@@ -382,7 +463,9 @@ def sweep(experiment, policies, param_grid, base, num_seeds, num_trials, out_dir
     instance_keys = ("average_distance", "omega", "exit_utility", "avg_capacity",
                       "alpha", "clip_distance_term", "distribution")
 
-    configs, specs = {}, []
+    cached_omni = load_omniscient_cache(out_dir, num_trials)
+    configs, specs, omni_key, scheduled = {}, [], {}, set()
+    reused = 0
     for values in grid_points:
         point = dict(zip(keys, values))
         cfg = {**base, **point}
@@ -391,8 +474,27 @@ def sweep(experiment, policies, param_grid, base, num_seeds, num_trials, out_dir
         ikw = {kk: cfg[kk] for kk in instance_keys if kk in cfg}
         common = dict(N=cfg["N"], M=cfg["M"], epsilon=cfg["epsilon"],
                       num_trials=num_trials, instance_kwargs=ikw)
+        # The omniscient normalizer is a property of the theta realizations
+        # alone, so it depends on (N, M, epsilon, instance params, seed) and
+        # NOT on k, S or gamma. Grid points differing only in those share one
+        # solve -- keyed on the determinants rather than on the grid point, so
+        # a k sweep at fixed epsilon solves 1 normalizer per seed instead of
+        # one per (k, seed). These are the sweep's most expensive jobs
+        # (num_trials LPs each), so the saving is the whole cost of the extra
+        # grid points.
+        okey = (cfg["N"], cfg["M"], cfg["epsilon"], tuple(sorted(ikw.items())))
+        omni_key[pt] = okey
         for seed in range(num_seeds):
-            specs.append(("omniscient", ("omni", pt, seed), dict(seed=seed, **common)))
+            if (okey, seed) not in scheduled:
+                scheduled.add((okey, seed))
+                # ...and an earlier experiment under the same --out-dir may
+                # already have solved this exact normalizer, in which case
+                # reuse its value rather than re-solving num_trials LPs.
+                if (okey, seed) in cached_omni:
+                    reused += 1
+                else:
+                    specs.append(("omniscient", ("omni", okey, seed),
+                                  dict(seed=seed, **common)))
             for policy_name, (policy_fn, extra_pkwargs) in policies.items():
                 specs.append(("policy", ("policy", pt, policy_name, seed), dict(
                     policy_name=policy_name, policy_fn=policy_fn,
@@ -400,23 +502,32 @@ def sweep(experiment, policies, param_grid, base, num_seeds, num_trials, out_dir
                                                  cfg["epsilon"], cfg.get("S", DEFAULT_S)),
                     k=cfg["k"], seed=seed, gamma=cfg.get("gamma"),
                     extra_metrics_fn=extra_metrics_fn,
-                    omniscient=DEFER_OMNISCIENT, **common)))
+                    omniscient=DEFER_OMNISCIENT, **(run_kwargs or {}), **common)))
 
+    if reused:
+        print(f"[{experiment}] reusing {reused} omniscient normalizer(s) already "
+              f"solved by other experiments in {out_dir}", flush=True)
     out = run_jobs(specs, jobs, progress_path=out_dir / experiment / "_progress.jsonl",
                    label=experiment)
+    out.update({("omni",) + key: value for key, value in cached_omni.items()})
 
     for pt, (point, cfg) in configs.items():
         for policy_name in policies:
             per_seed = []
             for seed in range(num_seeds):
                 rec = out[("policy", pt, policy_name, seed)]
-                omni = out[("omni", pt, seed)]
+                omni = out[("omni", omni_key[pt], seed)]
                 rec["omniscient_utility"] = omni
                 rec["normalized_utility"] = rec["utility"] / omni
                 per_seed.append(rec)
             per_seed.sort(key=lambda r: r["seed"])
             result = aggregate_seeds(policy_name, cfg["N"], cfg["M"], cfg["k"],
                                      cfg["epsilon"], num_trials, per_seed)
+            # The environment this was built in, so a later experiment can tell
+            # whether its own configuration matches and reuse the omniscient
+            # normalizer instead of re-solving it -- see
+            # `load_omniscient_cache`, which ignores files without this.
+            result["instance"] = {kk: cfg[kk] for kk in instance_keys if kk in cfg}
             save_result(out_dir, experiment, policy_name, point, result)
             print(f"[{experiment}] {policy_name} {point or '(default)'} -> "
                   f"norm_util={result['agg']['normalized_utility']:.3f} "
@@ -496,6 +607,87 @@ def experiment_noise_exact_small(small_N, small_M, small_k, num_seeds, num_trial
     policies = {**MAIN_POLICIES, "exact_saa_milp": (P.exact_saa_milp, {})}
     sweep("noise_exact_small", policies, EPS_GRID,
           dict(N=small_N, M=small_M, k=small_k, epsilon=DEFAULT_EPSILON, S=DEFAULT_S),
+          num_seeds, num_trials, out_dir, jobs=jobs)
+
+
+def experiment_noise_uncapped(N, M, num_seeds, num_trials, out_dir, jobs=1):
+    """The noise sweep again with the menu-size budget removed (k = M).
+
+    Not in the paper. It exists to size the menu-size constraint itself: every
+    policy in `noise` is fighting for a k=25 budget, and this is what the same
+    epsilon grid looks like when that budget is not scarce. Two policies are
+    enough to bracket it -- offer_all at k=M is literally "show the patient
+    every live provider", the no-menu-design benchmark, and sam at k=M is
+    Algorithm 1 asked to select without a cap (its `m_ij > 0` test is then the
+    only thing limiting a menu).
+
+    They are registered under distinct names so their results can be plotted
+    alongside the k=25 `noise` run without a filename or policy-field
+    collision. sam_uncapped passes S explicitly because `_policy_kwargs` keys
+    its SAM default off the literal name "sam"."""
+    policies = {
+        "offer_everything": (P.offer_all, {}),
+        "sam_uncapped": (P.sam, {"S": DEFAULT_S}),
+    }
+    sweep("noise_uncapped", policies, EPS_GRID,
+          dict(N=N, M=M, k=M, epsilon=DEFAULT_EPSILON, S=DEFAULT_S),
+          num_seeds, num_trials, out_dir, jobs=jobs)
+
+
+# The menu budget swept over its full range, from "offer one" to "offer
+# everything". Spaced roughly geometrically because the interesting behaviour
+# is at the small end (k=25 is the paper's operating point) while the question
+# the sweep answers -- where does a larger menu stop helping -- lives at the
+# large end. The last point is M itself, i.e. no cap at all.
+K_GRID_FULL = [1, 2, 5, 10, 25, 50, 100, 200, 350, 700]
+
+
+def experiment_error_decomposition(N, M, num_seeds, num_trials, out_dir, jobs=1):
+    """The noise sweep again, additionally recording E_theta[LP(X, theta)] --
+    the best assignment reachable inside each policy's own committed menu if
+    the realized theta were known. Not in the paper.
+
+    Splits the additive error against the omniscient into its two sources,
+
+        OPT(theta) - V  =  [OPT(theta) - LP(X, theta)]  +  [LP(X, theta) - V]
+                              coverage of the menu         coordination
+
+    both non-negative. See `metrics.menu_restricted_lp_utility` for why, and
+    `make_figures.make_error_decomposition` for the figure.
+
+    A separate experiment rather than a flag on `noise` because the extra
+    metric costs num_trials LPs per (policy, seed) -- cheap ones, restricted
+    to the k columns of the menu rather than all M, but not free -- and
+    nothing else needs them.
+
+    Two of the four policies are load-bearing checks on the decomposition:
+    offer_one must show coordination = 0 exactly (each patient has a single
+    option whose capacity its own LP already reserved), and offer_all must
+    show a small one (it offers the k best-looking providers, so its menu
+    contains a good assignment; what it lacks is any way to steer patients
+    onto it)."""
+    sweep("error_decomposition", MAIN_POLICIES, EPS_GRID,
+          dict(N=N, M=M, k=DEFAULT_K, epsilon=DEFAULT_EPSILON, S=DEFAULT_S),
+          num_seeds, num_trials, out_dir, jobs=jobs,
+          run_kwargs={"restricted_lp": True})
+
+
+def experiment_menu_budget(N, M, num_seeds, num_trials, out_dir, jobs=1):
+    """Menu budget k over its whole range at the default epsilon, all four
+    main policies -- utility and realized menu size against k.
+
+    Distinct from `menu_size` (EC.2.4), which crosses three small k values
+    with three epsilons; this fixes epsilon and pushes k up to M. Note
+    offer_one is flat by construction (its LP offers at most one provider
+    whatever k is), which makes it a useful zero line rather than a
+    competitor.
+
+    K_GRID_FULL's last point must be M or the "no cap" end of the axis is
+    missing; the grid is clipped to M so a smaller --M still produces a
+    sensible sweep."""
+    ks = sorted({min(k, M) for k in K_GRID_FULL})
+    sweep("menu_budget", MAIN_POLICIES, {"k": ks},
+          dict(N=N, M=M, epsilon=DEFAULT_EPSILON, S=DEFAULT_S),
           num_seeds, num_trials, out_dir, jobs=jobs)
 
 
@@ -599,6 +791,9 @@ EXPERIMENT_FNS = {
     "default": experiment_default,
     "noise": experiment_noise,
     "noise_exact_small": experiment_noise_exact_small,
+    "noise_uncapped": experiment_noise_uncapped,
+    "error_decomposition": experiment_error_decomposition,
+    "menu_budget": experiment_menu_budget,
     "patient_provider_ratio": experiment_patient_provider_ratio,
     "provider_capacity": experiment_provider_capacity,
     "mnl_choice": experiment_mnl_choice,
@@ -624,9 +819,12 @@ def main():
     parser.add_argument("--num-trials", type=int, default=25)
     parser.add_argument("--N", type=int, default=DEFAULT_N, help="base patient count (ignored by sweeps that vary N themselves)")
     parser.add_argument("--M", type=int, default=DEFAULT_M, help="base provider count (ignored by sweeps that vary M themselves)")
-    parser.add_argument("--small-N", type=int, default=20, help="exact-MILP patient count (paper-stated)")
-    parser.add_argument("--small-M", type=int, default=10, help="exact-MILP provider count (not stated in the paper)")
-    parser.add_argument("--small-k", type=int, default=5, help="exact-MILP menu size (not stated in the paper; must be < --small-M or the menu-size constraint it tests becomes a no-op)")
+    parser.add_argument("--small-N", type=int, default=10,
+                        help="exact-MILP patient count. The paper states 20, but at 20/10/5 the "
+                              "MILP did not close within an hour and the panel's denominator was a "
+                              "truncated incumbent; 10 is chosen so the solve is provably optimal")
+    parser.add_argument("--small-M", type=int, default=5, help="exact-MILP provider count (not stated in the paper)")
+    parser.add_argument("--small-k", type=int, default=2, help="exact-MILP menu size (not stated in the paper; must be < --small-M or the menu-size constraint it tests becomes a no-op)")
     parser.add_argument("--out-dir", type=Path, default=RESULTS_DIR)
     parser.add_argument("--jobs", type=int, default=1,
                         help="worker processes. Parallelism is over (policy, seed) units "
