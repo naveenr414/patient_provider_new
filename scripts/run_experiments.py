@@ -110,6 +110,10 @@ DEFAULT_MNL_TEMPERATURE = 0.1
 # literally). See `data_gen.semi_synthetic_theta` -- this decides whether a
 # patient's viable options are compressed into a band narrower than epsilon.
 DEFAULT_CLIP_DISTANCE_TERM = True
+# Multiplier on how far apart one patient's options are, applied on top of
+# whatever `distribution` produced (see `data_gen.rescale_spread`). 1.0 is the
+# distribution untouched, so every other experiment is unaffected.
+DEFAULT_SPREAD = 1.0
 
 DEFAULT_INSTANCE = dict(
     average_distance=DEFAULT_AVERAGE_DISTANCE,
@@ -118,6 +122,7 @@ DEFAULT_INSTANCE = dict(
     avg_capacity=DEFAULT_AVG_CAPACITY,
     alpha=DEFAULT_ALPHA,
     clip_distance_term=DEFAULT_CLIP_DISTANCE_TERM,
+    spread=DEFAULT_SPREAD,
     distribution="semi_synthetic",
 )
 
@@ -139,7 +144,7 @@ EC25_POLICIES = {
 # ---------------------------------------------------------------------------
 def build_instance(N, M, seed, average_distance, omega, exit_utility, avg_capacity,
                     alpha=DEFAULT_ALPHA, clip_distance_term=DEFAULT_CLIP_DISTANCE_TERM,
-                    distribution="semi_synthetic"):
+                    spread=DEFAULT_SPREAD, distribution="semi_synthetic"):
     """Returns (theta_hat: N x (M+1), capacities: length-M, patients-or-None)
     -- the platform's fixed utility estimate for this instance/seed. `patients` (list of
     dicts with a 'zip' key) is only available for the semi_synthetic
@@ -160,9 +165,26 @@ def build_instance(N, M, seed, average_distance, omega, exit_utility, avg_capaci
     else:
         raise ValueError(f"unknown distribution {distribution}")
 
+    # Applied to the providers only, before the exit column is appended: the
+    # exit option is a fixed outside alternative, not one of the options whose
+    # spread is under study, and rescaling it would confound "options are
+    # closer together" with "exiting got more attractive".
+    theta = data_gen.rescale_spread(theta, spread)
     theta_hat = np.hstack([theta, np.full((N, 1), exit_utility)])
     capacities = rng.poisson(avg_capacity, M)
     return theta_hat, capacities, patients
+
+
+def _spread_diagnostics(theta_hat, k, epsilon):
+    """Mean over patients of the top-1 minus top-k gap in theta_hat, raw and
+    in units of epsilon. The exit column is excluded -- it is an outside
+    option, not one of the k things a menu ranks."""
+    theta = theta_hat[:, :-1]
+    kk = min(k, theta.shape[1])
+    part = np.partition(theta, -kk, axis=1)[:, -kk:]
+    gap = part.max(axis=1) - part.min(axis=1)
+    return {"spread_gap_topk": float(gap.mean()),
+            "spread_kappa": float(gap.mean() / epsilon)}
 
 
 def run_one_seed(policy_name, policy_fn, policy_kwargs, N, M, k, epsilon, seed,
@@ -218,6 +240,15 @@ def run_one_seed(policy_name, policy_fn, policy_kwargs, N, M, k, epsilon, seed,
         # available on arrival (capacity-masked, exit included) and so is
         # always the smaller, later quantity.
         "menu_planned": float(out["menus"].sum(axis=1).mean()),
+        # How far apart this instance's options actually are, measured on
+        # theta_hat rather than assumed from the knob that produced it. The
+        # gap that matters is top-1 to top-k, not top-1 to top-2: a menu of
+        # size k can only ever exploit the first k options, and with M=700
+        # options crammed into [0,1] the top TWO are always within a hair of
+        # each other whatever the spread. Reported in units of epsilon
+        # because that ratio, not the raw gap, is what decides whether noise
+        # can reorder a patient's ranking.
+        **_spread_diagnostics(theta_hat, k, epsilon),
     }
     if restricted_lp:
         # Off by default: it is num_trials extra LPs per seed, worth paying
@@ -396,6 +427,19 @@ def _policy_kwargs(policy_name, extra_pkwargs, epsilon, S):
     return pkwargs
 
 
+def _instance_key(instance):
+    """Hashable identity of an environment, with unspecified parameters
+    filled in from DEFAULT_INSTANCE -- exactly what `run_one_seed` does before
+    calling `build_instance`, so two configs get the same key iff they build
+    the same theta_hat.
+
+    Defaulting matters for result files written before a parameter existed:
+    they recorded no value for it precisely because the only value it could
+    have had was the default, so filling it in is what lets their omniscient
+    normalizers still be reused instead of silently re-solved."""
+    return tuple(sorted({**DEFAULT_INSTANCE, **instance}.items()))
+
+
 def load_omniscient_cache(out_dir, num_trials):
     """{(config_key, seed): E_theta[OPT(theta)]} harvested from result files
     other experiments already wrote under `out_dir`.
@@ -429,7 +473,7 @@ def load_omniscient_cache(out_dir, num_trials):
         instance = d.get("instance")
         if instance is None or d.get("num_trials") != num_trials:
             continue
-        key = (d["N"], d["M"], d["epsilon"], tuple(sorted(instance.items())))
+        key = (d["N"], d["M"], d["epsilon"], _instance_key(instance))
         for row in d.get("per_seed", []):
             value = row.get("omniscient_utility")
             if value is None or not np.isfinite(value):
@@ -461,7 +505,7 @@ def sweep(experiment, policies, param_grid, base, num_seeds, num_trials, out_dir
     keys = list(param_grid.keys())
     grid_points = list(itertools.product(*param_grid.values())) if keys else [()]
     instance_keys = ("average_distance", "omega", "exit_utility", "avg_capacity",
-                      "alpha", "clip_distance_term", "distribution")
+                      "alpha", "clip_distance_term", "spread", "distribution")
 
     cached_omni = load_omniscient_cache(out_dir, num_trials)
     configs, specs, omni_key, scheduled = {}, [], {}, set()
@@ -482,7 +526,7 @@ def sweep(experiment, policies, param_grid, base, num_seeds, num_trials, out_dir
         # one per (k, seed). These are the sweep's most expensive jobs
         # (num_trials LPs each), so the saving is the whole cost of the extra
         # grid points.
-        okey = (cfg["N"], cfg["M"], cfg["epsilon"], tuple(sorted(ikw.items())))
+        okey = (cfg["N"], cfg["M"], cfg["epsilon"], _instance_key(ikw))
         omni_key[pt] = okey
         for seed in range(num_seeds):
             if (okey, seed) not in scheduled:
@@ -769,6 +813,36 @@ def experiment_theta_distribution(N, M, num_seeds, num_trials, out_dir, jobs=1):
           num_seeds, num_trials, out_dir, jobs=jobs)
 
 
+# Epsilon for the spread sweep. NOT the default 0.25, and the reason is a
+# constraint of the environment rather than a preference: what governs a
+# menu's value is the ratio spread/epsilon, and with theta confined to [0,1]
+# and M=700 providers the reachable top-1-to-top-25 gap tops out around 0.13.
+# At epsilon=0.25 the whole sweep would sit below kappa=0.5 and only trace the
+# flat left end of the curve. Pushing spread ABOVE 1 to compensate does not
+# work: the [0,1] clip then piles the top options up at exactly 1.0 and
+# destroys the spread being asked for. Shrinking epsilon instead costs
+# nothing, is inside the paper's own EPS_GRID, and lets spread in [0, 1] --
+# where `rescale_spread` provably cannot clip -- cover kappa from 0 to ~2.5.
+SPREAD_EPSILON = 0.05
+SPREAD_GRID = [0.0, 0.1, 0.2, 0.35, 0.5, 0.7, 0.85, 1.0]
+
+
+def experiment_theta_spread(N, M, num_seeds, num_trials, out_dir, jobs=1):
+    """How far apart a patient's options are, at FIXED epsilon (not in the
+    paper). The general-instance counterpart to `tests/debugging/
+    instance_family.py`, which asks the same question on a hand-built N=14,
+    M=5 family: there the top-1/top-2 gap is set directly, here the paper's
+    own semi-synthetic theta is rescaled about each patient's row mean, so
+    the level of a patient's utility is untouched and only the dispersion
+    moves. spread=1.0 reproduces the default environment exactly.
+
+    All six policies, so the figure can show the same lines the toy one does.
+    """
+    sweep("theta_spread", EC25_POLICIES, {"spread": SPREAD_GRID},
+          dict(N=N, M=M, k=DEFAULT_K, epsilon=SPREAD_EPSILON, S=DEFAULT_S),
+          num_seeds, num_trials, out_dir, jobs=jobs)
+
+
 def experiment_menu_size(N, M, num_seeds, num_trials, out_dir, jobs=1):
     """Menu budget k crossed with noise epsilon (EC.2.4)."""
     sweep("menu_size", MAIN_POLICIES, {"k": [5, 10, 25], "epsilon": [0.01, 0.20, 0.40]},
@@ -802,6 +876,7 @@ EXPERIMENT_FNS = {
     "comorbidity_weight": experiment_comorbidity_weight,
     "sam_samples": experiment_sam_samples,
     "theta_distribution": experiment_theta_distribution,
+    "theta_spread": experiment_theta_spread,
     "menu_size": experiment_menu_size,
     "scale": experiment_scale,
 }

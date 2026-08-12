@@ -684,6 +684,33 @@ def make_theta_distributions(results_dir, out_dir):
     )
 
 
+def make_theta_spread(results_dir, out_dir):
+    """How far apart a patient's options are, at fixed epsilon (not in the
+    paper). The general-instance version of `tests/debugging/
+    instance_family.py`'s left panel.
+
+    The x axis is the MEASURED spread -- the mean top-1-to-top-k gap in
+    theta_hat, in units of epsilon -- rather than the `spread` multiplier that
+    produced it. The multiplier is an input to a generator whose output
+    dispersion depends on the distribution; the gap is the thing the policies
+    actually see, and it is what makes this curve comparable to the toy
+    family's, which is indexed the same way."""
+    records = load_experiment(results_dir / "theta_spread")
+    if not records:
+        print("skip utility_vs_theta_spread.pdf: no data")
+        return
+    for r in records:
+        r["spread_kappa"] = r["agg"]["spread_kappa"]
+    present = _sorted_policies(records)
+    eps = {r["epsilon"] for r in records}
+    title = f"$\\epsilon$ fixed at {eps.pop():g}" if len(eps) == 1 else None
+    line_panels([records], "spread_kappa", "normalized_utility",
+                ["Option Spread (top-1 $-$ top-$k$, in units of $\\epsilon$)"],
+                "Norm. Utility", out_dir / "utility_vs_theta_spread.pdf",
+                titles=[title] if title else None,
+                policies=present, figsize=(5.5, 2))
+
+
 def make_menu_size(results_dir, out_dir):
     """EC.2.4: noise sweep at three menu-size budgets k."""
     records = load_experiment(results_dir / "menu_size")
@@ -738,6 +765,7 @@ FIGURES = {
     "utility_operationalization": make_utility_operationalization,
     "sample_count": make_sample_count,
     "theta_distributions": make_theta_distributions,
+    "theta_spread": make_theta_spread,
     "menu_size": make_menu_size,
     "stronger_baselines": make_stronger_baselines,
     "runtime": make_runtime,

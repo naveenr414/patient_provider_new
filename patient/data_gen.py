@@ -183,6 +183,36 @@ def semi_synthetic_theta(num_patients, num_providers, average_distance=20.2, ome
     return theta, patients, providers
 
 
+def rescale_spread(theta, spread):
+    """Scale how far apart one patient's options are, holding that patient's
+    MEAN utility fixed:
+
+        theta_ij <- mean_j(theta_ij) + spread * (theta_ij - mean_j(theta_ij))
+
+    spread = 1 is the distribution untouched; spread = 0 collapses every
+    provider to the patient's own mean, so the patient is indifferent and
+    there is nothing for a menu to be about. Centring on the patient's own
+    row mean rather than a global constant is what makes this a pure spread
+    knob: it redistributes value within a row instead of raising or lowering
+    the level, so a policy's utility cannot improve merely because everyone
+    got better options. That is the same invariant `instance_family.build`
+    enforces on the toy family by construction.
+
+    Applies to any theta matrix, whatever generator produced it, and is the
+    exception to the [0,1] clip mattering: for spread <= 1 the result is a
+    convex combination of theta and a row mean, so it cannot leave the range
+    the input was already in. spread > 1 CAN escape [0, 1] and is clipped
+    here; be careful with it, because the clip piles the top options up at
+    exactly 1.0 and destroys the very spread being asked for (this is what
+    makes `normal_theta` unusable as a spread base -- its mu_j ~ U(0,1)
+    already puts many providers at the ceiling).
+    """
+    if spread == 1.0:
+        return theta
+    row_mean = theta.mean(axis=1, keepdims=True)
+    return np.clip(row_mean + spread * (theta - row_mean), 0.0, 1.0)
+
+
 def uniform_theta(num_patients, num_providers, seed=None):
     """EC.2.3: theta_ij ~ Uniform(0, 1), i.i.d."""
     rng = np.random.RandomState(seed)
